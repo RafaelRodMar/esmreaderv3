@@ -39,13 +39,13 @@ std::ostream& operator<<(std::ostream& out, const SubRecordHeader &obj) {
 
 void readRecordHeader() {
 	file.read((char*)&recordHeader, sizeof(recordHeader));
-	std::cout << recordHeader << std::endl;
+	//std::cout << recordHeader << std::endl;
 }
 
 int readSubRecordHeader() {
 	file.read((char*)&subRecordHeader, sizeof(subRecordHeader));
-	//std::cout << "Sub-Record header bytes read: " << sizeof(subRecordHeader) << std::endl;
-	std::cout << subRecordHeader << std::endl;
+	////std::cout << "Sub-Record header bytes read: " << sizeof(subRecordHeader) << std::endl;
+	//std::cout << subRecordHeader << std::endl;
 	return sizeof(subRecordHeader);
 }
 
@@ -60,8 +60,8 @@ std::vector< std::pair<std::string, std::vector<char>> > getSubRecordData(std::v
 		std::string subRecordName = std::string(buffer.data() + index, 4);
 		long int subRecordSize = 0;
 		memmove(&subRecordSize, &buffer[index + 4], sizeof(subRecordSize));
-		std::cout << "Name: " << subRecordName << " ";
-		std::cout << "Size: " << subRecordSize << std::endl;
+		//std::cout << "Name: " << subRecordName << " ";
+		//std::cout << "Size: " << subRecordSize << std::endl;
 		index += 8;
 		p.first = subRecordName;
 		std::vector<char> newVec(buffer.begin() + index, buffer.begin() + index + subRecordSize);
@@ -113,12 +113,12 @@ uint16_t getuint16_tInt(std::vector<char> &v) {
 }
 
 void parseTES3(std::vector<char> &buffer) {
-	std::cout << "Parsing TES3 tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing TES3 tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse the sub-records in the vector
 	for (int i = 0; i < v.size(); i++) {
@@ -126,34 +126,34 @@ void parseTES3(std::vector<char> &buffer) {
 		{
 			Hedr hedr;
 			memmove((char*)&hedr, v[i].second.data(), sizeof(hedr));
-			std::cout << "File type: " << hedr.fileType << std::endl;
-			std::cout << "Version: " << hedr.version << std::endl;
-			std::cout << "Company name: " << hedr.companyName << std::endl;
-			std::cout << "Description: " << hedr.description << std::endl;
-			std::cout << "Number of records: " << hedr.numRecords << std::endl;
+			//std::cout << "File type: " << hedr.fileType << std::endl;
+			//std::cout << "Version: " << hedr.version << std::endl;
+			//std::cout << "Company name: " << hedr.companyName << std::endl;
+			//std::cout << "Description: " << hedr.description << std::endl;
+			//std::cout << "Number of records: " << hedr.numRecords << std::endl;
 		}
 
 		//the next two can be repeated for every required master file.
 		if (v[i].first == "MAST")
 		{
-			std::cout << "  Required master file: " << getString(v[i].second) << std::endl;
+			//std::cout << "  Required master file: " << getString(v[i].second) << std::endl;
 		}
 
 		if (v[i].first == "DATA")
 		{
-			std::cout << "  Size of the required master file: " << getLongInt(v[i].second) << std::endl;
+			//std::cout << "  Size of the required master file: " << getLongInt(v[i].second) << std::endl;
 		}
 	}
 }
 
 void parseGMST(std::vector<char> &buffer) {
 
-	std::cout << "Parsing GMST tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing GMST tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse the sub-records in the vector
 	GMST g;
@@ -164,20 +164,20 @@ void parseGMST(std::vector<char> &buffer) {
 		if (x.first == "FLTV") g.floatValue = getFloat(x.second);
 	}
 
-	std::cout << "  Name: " << g.name << std::endl;
-	std::cout << "  String: " << g.stringValue << std::endl;
-	std::cout << "  Int value: " << g.intValue << std::endl;
-	std::cout << "  Float Value: " << g.floatValue << std::endl;
+	//std::cout << "  Name: " << g.name << std::endl;
+	//std::cout << "  String: " << g.stringValue << std::endl;
+	//std::cout << "  Int value: " << g.intValue << std::endl;
+	//std::cout << "  Float Value: " << g.floatValue << std::endl;
 	vgmst.push_back(g);
 }
 void parseGLOB(std::vector<char> &buffer) {
 
-	std::cout << "Parsing GLOB tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing GLOB tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse the sub-records in the vector
 	GLOB g;
@@ -189,20 +189,20 @@ void parseGLOB(std::vector<char> &buffer) {
 		if (x.first == "FLTV" && g.type == "f") g.value = getFloat(x.second);
 	}
 
-	std::cout << "  Name: " << g.name << std::endl;
-	std::cout << "  Type: " << g.type << std::endl;
-	std::cout << "  Value: " << g.value << std::endl;
+	//std::cout << "  Name: " << g.name << std::endl;
+	//std::cout << "  Type: " << g.type << std::endl;
+	//std::cout << "  Value: " << g.value << std::endl;
 	vglob.push_back(g);
 }
 
 void parseCLAS(std::vector<char> &buffer) {
 
-	std::cout << "Parsing CLAS tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing CLAS tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse the sub-records in the vector
 	CLAS c;
@@ -213,18 +213,18 @@ void parseCLAS(std::vector<char> &buffer) {
 		if (x.first == "DESC") c.description = getString(x.second);
 	}
 
-	std::cout << "  " << c.name << " " << c.fullName << " " << c.description << std::endl;
+	//std::cout << "  " << c.name << " " << c.fullName << " " << c.description << std::endl;
 	vclas.push_back(c);
 }
 
 void parseFACT(std::vector<char> &buffer) {
 
-	std::cout << "Parsing FACT tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing FACT tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse the sub-records in the vector
 	FACT f;
@@ -241,21 +241,21 @@ void parseFACT(std::vector<char> &buffer) {
 		}
 	}
 
-	std::cout << f.name << " " << f.fullName << std::endl;
+	//std::cout << f.name << " " << f.fullName << std::endl;
 	for (auto s : f.rankName) {
-		std::cout << s << std::endl;
+		//std::cout << s << std::endl;
 	}
 	vfact.push_back(f);
 }
 
 void parseRACE(std::vector<char> &buffer) {
 
-	std::cout << "Parsing RACE tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing RACE tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse the sub-records in the vector
 	RACE r;
@@ -267,22 +267,22 @@ void parseRACE(std::vector<char> &buffer) {
 		if (x.first == "DESC") r.description = getString(x.second);
 	}
 
-	std::cout << r.fullName << " " << r.description << std::endl;
-	std::cout << "special abilities" << std::endl;
+	//std::cout << r.fullName << " " << r.description << std::endl;
+	//std::cout << "special abilities" << std::endl;
 	for (auto x : r.special) {
-		std::cout << x << std::endl;
+		//std::cout << x << std::endl;
 	}
 	vrace.push_back(r);
 }
 
 void parseSOUN(std::vector<char> &buffer) {
 
-	std::cout << "Parsing SOUN tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing SOUN tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	SOUN s;
@@ -292,18 +292,18 @@ void parseSOUN(std::vector<char> &buffer) {
 		if (x.first == "DATA") memmove((char*)&s.sd, x.second.data(), sizeof(s.sd));
 	}
 
-	std::cout << s.fullName << std::endl;
+	//std::cout << s.fullName << std::endl;
 	vsoun.push_back(s);
 }
 
 void parseSKIL(std::vector<char> &buffer) {
 
-	std::cout << "Parsing SKIL tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing SKIL tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	SKIL s;
@@ -313,18 +313,18 @@ void parseSKIL(std::vector<char> &buffer) {
 		if (x.first == "DESC") s.description = getString(x.second);
 	}
 
-	std::cout << s.description << std::endl;
+	//std::cout << s.description << std::endl;
 	vskil.push_back(s);
 }
 
 void parseMGEF(std::vector<char> &buffer) {
 
-	std::cout << "Parsing MGEF tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing MGEF tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	MGEF m;
@@ -344,24 +344,24 @@ void parseMGEF(std::vector<char> &buffer) {
 		if (x.first == "ASND") m.areaSound = getString(x.second);
 	}
 
-	std::cout << m.iconTexture << std::endl;
-	std::cout << m.particleTexture << std::endl;
-	std::cout << m.castingVisual << " // " << m.castSound << std::endl;
-	std::cout << m.boltVisual << " // " << m.boltSound << std::endl;
-	std::cout << m.hitVisual << " // " << m.hitSound << std::endl;
-	std::cout << m.areaVisual << " // " << m.areaSound << std::endl;
-	std::cout << m.description << std::endl;
+	//std::cout << m.iconTexture << std::endl;
+	//std::cout << m.particleTexture << std::endl;
+	//std::cout << m.castingVisual << " // " << m.castSound << std::endl;
+	//std::cout << m.boltVisual << " // " << m.boltSound << std::endl;
+	//std::cout << m.hitVisual << " // " << m.hitSound << std::endl;
+	//std::cout << m.areaVisual << " // " << m.areaSound << std::endl;
+	//std::cout << m.description << std::endl;
 	vmgef.push_back(m);
 }
 
 void parseSCPT(std::vector<char> &buffer) {
 
-	std::cout << "Parsing SCPT tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing SCPT tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	SCPT s;
@@ -370,13 +370,13 @@ void parseSCPT(std::vector<char> &buffer) {
 		if (x.first == "SCVR")
 		{
 			std::string aux = getCompleteString(x.second); //the complete list separated by \0
-			std::cout << "Complete list: " << aux << std::endl;
+			//std::cout << "Complete list: " << aux << std::endl;
 			std::string buf = "";
 			for (int i = 0; i < aux.size(); i++) {
 				if (aux[i] == 0)
 				{
 					s.localVars.push_back(buf);
-					std::cout << "var: " << buf << std::endl;
+					//std::cout << "var: " << buf << std::endl;
 					buf = "";
 					i++;
 				}
@@ -391,12 +391,12 @@ void parseSCPT(std::vector<char> &buffer) {
 
 void parseREGN(std::vector<char> &buffer) {
 
-	std::cout << "Parsing REGN tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing REGN tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	REGN r;
@@ -414,21 +414,21 @@ void parseREGN(std::vector<char> &buffer) {
 		}
 	}
 
-	std::cout << r.fullName << std::endl;
+	//std::cout << r.fullName << std::endl;
 	for (int i = 0; i < r.sounds.size(); i++) {
-		std::cout << "snd: " << std::string(r.sounds[i].soundName) << std::endl;
+		//std::cout << "snd: " << std::string(r.sounds[i].soundName) << std::endl;
 	}
 	vregn.push_back(r);
 }
 
 void parseBSGN(std::vector<char> &buffer) {
 
-	std::cout << "Parsing BSGN tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing BSGN tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	BSGN b;
@@ -440,21 +440,21 @@ void parseBSGN(std::vector<char> &buffer) {
 		if (x.first == "NPCS") b.spell_ability.push_back(getString(x.second));
 	}
 
-	std::cout << b.fullName << " : " << b.description << std::endl;
+	//std::cout << b.fullName << " : " << b.description << std::endl;
 	for (int i = 0; i < b.spell_ability.size(); i++) {
-		std::cout << "spell/ability: " << b.spell_ability[i] << std::endl;
+		//std::cout << "spell/ability: " << b.spell_ability[i] << std::endl;
 	}
 	vbsgn.push_back(b);
 }
 
 void parseLTEX(std::vector<char> &buffer) {
 
-	std::cout << "Parsing LTEX tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing LTEX tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	LTEX l;
@@ -464,18 +464,18 @@ void parseLTEX(std::vector<char> &buffer) {
 		if (x.first == "DATA") l.filename = getString(x.second);
 	}
 
-	std::cout << l.name << " : " << l.filename << std::endl;
+	//std::cout << l.name << " : " << l.filename << std::endl;
 	vltex.push_back(l);
 }
 
 void parseSTAT(std::vector<char> &buffer) {
 
-	std::cout << "Parsing STAT tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing STAT tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	STAT s;
@@ -484,18 +484,18 @@ void parseSTAT(std::vector<char> &buffer) {
 		if (x.first == "MODL") s.model = getString(x.second);
 	}
 
-	std::cout << s.name << " : " << s.model << std::endl;
+	//std::cout << s.name << " : " << s.model << std::endl;
 	vstat.push_back(s);
 }
 
 void parseDOOR(std::vector<char> &buffer) {
 
-	std::cout << "Parsing DOOR tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing DOOR tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	DOOR d;
@@ -508,18 +508,18 @@ void parseDOOR(std::vector<char> &buffer) {
 		if (x.first == "ANAM") d.closeSound = getString(x.second);
 	}
 
-	std::cout << d.fullName << " : " << d.model << std::endl;
+	//std::cout << d.fullName << " : " << d.model << std::endl;
 	vdoor.push_back(d);
 }
 
 void parseMISC(std::vector<char> &buffer) {
 
-	std::cout << "Parsing MISC tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing MISC tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	MISC m;
@@ -533,18 +533,18 @@ void parseMISC(std::vector<char> &buffer) {
 		if (x.first == "ENAM") m.enchantment = getString(x.second);
 	}
 
-	std::cout << m.fullName << " : " << m.icon << std::endl;
+	//std::cout << m.fullName << " : " << m.icon << std::endl;
 	vmisc.push_back(m);
 }
 
 void parseWEAP(std::vector<char> &buffer) {
 
-	std::cout << "Parsing WEAP tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing WEAP tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	WEAP w;
@@ -558,18 +558,18 @@ void parseWEAP(std::vector<char> &buffer) {
 		if (x.first == "ENAM") w.enchantment = getString(x.second);
 	}
 
-	std::cout << w.fullName << " : " << w.model << std::endl;
+	//std::cout << w.fullName << " : " << w.model << std::endl;
 	vweap.push_back(w);
 }
 
 void parseCONT(std::vector<char> &buffer) {
 
-	std::cout << "Parsing CONT tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing CONT tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	CONT c;
@@ -588,18 +588,18 @@ void parseCONT(std::vector<char> &buffer) {
 		}
 	}
 
-	std::cout << c.fullName << " : " << c.model << std::endl;
+	//std::cout << c.fullName << " : " << c.model << std::endl;
 	vcont.push_back(c);
 }
 
 void parseSPEL(std::vector<char> &buffer) {
 
-	std::cout << "Parsing SPEL tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing SPEL tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	SPEL s;
@@ -615,18 +615,18 @@ void parseSPEL(std::vector<char> &buffer) {
 		}
 	}
 
-	std::cout << s.fullName << std::endl;
+	//std::cout << s.fullName << std::endl;
 	vspel.push_back(s);
 }
 
 void parseCREA(std::vector<char> &buffer) {
 
-	std::cout << "Parsing CREA tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing CREA tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	CREA c;
@@ -688,18 +688,18 @@ void parseCREA(std::vector<char> &buffer) {
 		if (x.first == "XSCL") c.scale = getFloat(x.second);
 	}
 
-	std::cout << c.fullName << " " << c.model << std::endl;
+	//std::cout << c.fullName << " " << c.model << std::endl;
 	vcrea.push_back(c);
 }
 
 void parseBODY(std::vector<char> &buffer) {
 
-	std::cout << "Parsing BODY tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing BODY tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	BODY b;
@@ -710,18 +710,18 @@ void parseBODY(std::vector<char> &buffer) {
 		if (x.first == "BYDT") memmove((char*)&b.bd, x.second.data(), sizeof(b.bd));
 	}
 
-	std::cout << b.fullName << " " << b.model << std::endl;
+	//std::cout << b.fullName << " " << b.model << std::endl;
 	vbody.push_back(b);
 }
 
 void parseLIGH(std::vector<char> &buffer) {
 
-	std::cout << "Parsing LIGH tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing LIGH tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	LIGH l;
@@ -735,18 +735,18 @@ void parseLIGH(std::vector<char> &buffer) {
 		if (x.first == "LHDT") memmove((char*)&l.ld, x.second.data(), sizeof(l.ld));
 	}
 
-	std::cout << l.fullName << " " << l.model << std::endl;
+	//std::cout << l.fullName << " " << l.model << std::endl;
 	vligh.push_back(l);
 }
 
 void parseENCH(std::vector<char> &buffer) {
 
-	std::cout << "Parsing ENCH tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing ENCH tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records of the vector
 	ENCH e;
@@ -761,18 +761,18 @@ void parseENCH(std::vector<char> &buffer) {
 		}
 	}
 
-	std::cout << e.name << std::endl;
+	//std::cout << e.name << std::endl;
 	vench.push_back(e);
 }
 
 void parseNPC_(std::vector<char> &buffer) {
 
-	std::cout << "Parsing NPC_ tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing NPC_ tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	NPC_ n;
@@ -850,17 +850,17 @@ void parseNPC_(std::vector<char> &buffer) {
 		if (x.first == "XSCL") n.scale = getFloat(x.second);
 	}
 
-	std::cout << n.fullName << " " << n.model << std::endl;
+	//std::cout << n.fullName << " " << n.model << std::endl;
 	vnpc_.push_back(n);
 }
 void parseARMO(std::vector<char> &buffer) {
 
-	std::cout << "Parsing ARMO tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing ARMO tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	ARMO a;
@@ -884,18 +884,18 @@ void parseARMO(std::vector<char> &buffer) {
 		if (x.first == "SCRI") a.script = getString(x.second);
 	}
 
-	std::cout << a.fullName << " " << a.model << std::endl;
+	//std::cout << a.fullName << " " << a.model << std::endl;
 	varmo.push_back(a);
 }
 
 void parseCLOT(std::vector<char> &buffer) {
 
-	std::cout << "Parsing CLOT tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing CLOT tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	CLOT c;
@@ -919,18 +919,18 @@ void parseCLOT(std::vector<char> &buffer) {
 		if (x.first == "SCRI") c.script = getString(x.second);
 	}
 
-	std::cout << c.fullName << " " << c.model << std::endl;
+	//std::cout << c.fullName << " " << c.model << std::endl;
 	vclot.push_back(c);
 }
 
 void parseREPA(std::vector<char> &buffer) {
 
-	std::cout << "Parsing REPA tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing REPA tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	REPA r;
@@ -943,18 +943,18 @@ void parseREPA(std::vector<char> &buffer) {
 		if (x.first == "SCRI") r.script = getString(x.second);
 	}
 
-	std::cout << r.fullName << " " << r.model << std::endl;
+	//std::cout << r.fullName << " " << r.model << std::endl;
 	vrepa.push_back(r);
 }
 
 void parseACTI(std::vector<char> &buffer) {
 
-	std::cout << "Parsing ACTI tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing ACTI tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	ACTI a;
@@ -965,18 +965,18 @@ void parseACTI(std::vector<char> &buffer) {
 		if (x.first == "SCRI") a.script = getString(x.second);
 	}
 
-	std::cout << a.fullName << " " << a.model << std::endl;
+	//std::cout << a.fullName << " " << a.model << std::endl;
 	vacti.push_back(a);
 }
 
 void parseAPPA(std::vector<char> &buffer) {
 
-	std::cout << "Parsing APPA tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing APPA tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	APPA a;
@@ -989,18 +989,18 @@ void parseAPPA(std::vector<char> &buffer) {
 		if (x.first == "AADT") memmove((char*)&a.ad, x.second.data(), sizeof(a.ad));
 	}
 
-	std::cout << a.fullName << " " << a.model << std::endl;
+	//std::cout << a.fullName << " " << a.model << std::endl;
 	vappa.push_back(a);
 }
 
 void parseLOCK(std::vector<char> &buffer) {
 
-	std::cout << "Parsing LOCK tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing LOCK tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	LOCK l;
@@ -1013,18 +1013,18 @@ void parseLOCK(std::vector<char> &buffer) {
 		if (x.first == "LKDT") memmove((char*)&l.ld, x.second.data(), sizeof(l.ld));
 	}
 
-	std::cout << l.fullName << " " << l.model << std::endl;
+	//std::cout << l.fullName << " " << l.model << std::endl;
 	vlock.push_back(l);
 }
 
 void parsePROB(std::vector<char> &buffer) {
 
-	std::cout << "Parsing PROB tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing PROB tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	PROB p;
@@ -1037,18 +1037,18 @@ void parsePROB(std::vector<char> &buffer) {
 		if (x.first == "LKDT") memmove((char*)&p.pd, x.second.data(), sizeof(p.pd));
 	}
 
-	std::cout << p.fullName << " " << p.model << std::endl;
+	//std::cout << p.fullName << " " << p.model << std::endl;
 	vprob.push_back(p);
 }
 
 void parseINGR(std::vector<char> &buffer) {
 
-	std::cout << "Parsing INGR tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing INGR tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	INGR i;
@@ -1061,18 +1061,18 @@ void parseINGR(std::vector<char> &buffer) {
 		if (x.first == "LKDT") memmove((char*)&i.id, x.second.data(), sizeof(i.id));
 	}
 
-	std::cout << i.fullName << " " << i.model << std::endl;
+	//std::cout << i.fullName << " " << i.model << std::endl;
 	vingr.push_back(i);
 }
 
 void parseBOOK(std::vector<char> &buffer) {
 
-	std::cout << "Parsing BOOK tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing BOOK tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	BOOK b;
@@ -1087,18 +1087,18 @@ void parseBOOK(std::vector<char> &buffer) {
 		if (x.first == "LKDT") memmove((char*)&b.bd, x.second.data(), sizeof(b.bd));
 	}
 
-	std::cout << b.fullName << " " << b.model << std::endl;
+	//std::cout << b.fullName << " " << b.model << std::endl;
 	vbook.push_back(b);
 }
 
 void parseALCH(std::vector<char> &buffer) {
 
-	std::cout << "Parsing ALCH tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing ALCH tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	ALCH a;
@@ -1117,17 +1117,17 @@ void parseALCH(std::vector<char> &buffer) {
 		}
 	}
 
-	std::cout << a.fullName << " " << a.model << std::endl;
+	//std::cout << a.fullName << " " << a.model << std::endl;
 	valch.push_back(a);
 }
 void parseLEVI(std::vector<char> &buffer) {
 
-	std::cout << "Parsing LEVI tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing LEVI tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	LEVI l;
@@ -1140,18 +1140,18 @@ void parseLEVI(std::vector<char> &buffer) {
 		//every INTV record belongs to the previous INAM record.
 		if (x.first == "INTV") l.item.back().second = getuint16_tInt(x.second);
 	}
-	std::cout << l.name << " " << l.count << std::endl;
+	//std::cout << l.name << " " << l.count << std::endl;
 	vlevi.push_back(l);
 }
 
 void parseLEVC(std::vector<char> &buffer) {
 
-	std::cout << "Parsing LEVC tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing LEVC tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	LEVC c;
@@ -1164,18 +1164,18 @@ void parseLEVC(std::vector<char> &buffer) {
 		//every INTV record belongs to the previous INAM record.
 		if (x.first == "INTV") c.item.back().second = getuint16_tInt(x.second);
 	}
-	std::cout << c.name << " " << c.count << std::endl;
+	//std::cout << c.name << " " << c.count << std::endl;
 	vlevc.push_back(c);
 }
 
 void parseCELL(std::vector<char> &buffer) {
 
-	std::cout << "Parsing CELL tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing CELL tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	CELL c;
@@ -1250,7 +1250,7 @@ void parseCELL(std::vector<char> &buffer) {
 				if (v[i].first == "NAME")
 				{
 					c.persistentRefs.back().name = getString(v[i].second);
-					std::cout << std::endl << "object: " << c.persistentRefs.back().name << std::endl;
+					//std::cout << std::endl << "object: " << c.persistentRefs.back().name << std::endl;
 				}
 				else if (v[i].first == "UNAM")
 				{
@@ -1341,17 +1341,17 @@ void parseCELL(std::vector<char> &buffer) {
 		}
 	}
 
-	std::cout << c.name << " " << c.regionName << std::endl;
+	//std::cout << c.name << " " << c.regionName << std::endl;
 	vcell.push_back(c);
 }
 void parseLAND(std::vector<char> &buffer) {
 
-	std::cout << "Parsing LAND tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing LAND tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	LAND l;
@@ -1369,34 +1369,34 @@ void parseLAND(std::vector<char> &buffer) {
 
 void parsePGRD(std::vector<char> &buffer) {
 
-	std::cout << "Parsing PGRD tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing PGRD tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	PGRD p;
 	for (auto x : v) {
-		std::cout << "TAG:" << x.first << " SIZE:" << x.second.size() << std::endl;
+		//std::cout << "TAG:" << x.first << " SIZE:" << x.second.size() << std::endl;
 		if (x.first == "DATA") memmove((char*)&p.pathData, x.second.data(), sizeof(p.pathData));
 		if (x.first == "NAME") p.name = getString(x.second);
 		if (x.first == "PGRP") memmove((char*)&p.pathPoints, x.second.data(), subRecordHeader.size);
 		if (x.first == "PGRC") memmove((char*)&p.connectionList, x.second.data(), subRecordHeader.size);
 	}
-	std::cout << "BEWARE : probably losing some connection points" << std::endl;
+	//std::cout << "BEWARE : probably losing some connection points" << std::endl;
 	vpgrd.push_back(p);
 }
 
 void parseSNDG(std::vector<char> &buffer) {
 
-	std::cout << "Parsing SNDG tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing SNDG tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	SNDG s;
@@ -1407,18 +1407,18 @@ void parseSNDG(std::vector<char> &buffer) {
 		if (x.first == "SNAM") s.soundID = getString(x.second);
 	}
 
-	std::cout << s.soundID << " " << s.name << " " << s.creatureName << std::endl;
+	//std::cout << s.soundID << " " << s.name << " " << s.creatureName << std::endl;
 	vsndg.push_back(s);
 }
 
 void parseDIAL(std::vector<char> &buffer) {
 
-	std::cout << "Parsing DIAL tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing DIAL tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	DIAL d;
@@ -1426,18 +1426,18 @@ void parseDIAL(std::vector<char> &buffer) {
 		if (x.first == "NAME") d.name = getString(x.second);
 		if (x.first == "DATA") d.dialogueType = getuint8_tInt(x.second);
 	}
-	std::cout << d.name << " " << d.dialogueType << std::endl;
+	//std::cout << d.name << " " << d.dialogueType << std::endl;
 	vdial.push_back(d);
 }
 
 void parseINFO(std::vector<char> &buffer) {
 
-	std::cout << "Parsing INFO tag: " << buffer.size() << " bytes" << std::endl;
+	//std::cout << "Parsing INFO tag: " << buffer.size() << " bytes" << std::endl;
 	std::vector< std::pair<std::string, std::vector<char>> > v;
 
 	//read the sub-records
 	v = getSubRecordData(buffer);
-	std::cout << "Tags in vector: " << v.size() << std::endl;
+	//std::cout << "Tags in vector: " << v.size() << std::endl;
 
 	//parse sub-records in the vector
 	INFO i;
@@ -1462,7 +1462,7 @@ void parseINFO(std::vector<char> &buffer) {
 		if (x.first == "QSTF") i.questFinished = getuint8_tInt(x.second);
 		if (x.first == "QSTR") i.questRestart = getuint8_tInt(x.second);
 	}
-	std::cout << i.name << " " << i.actor << std::endl;
+	//std::cout << i.name << " " << i.actor << std::endl;
 	vdial.back().vinfo.push_back(i);
 }
 
@@ -1521,7 +1521,7 @@ void readESM(const std::string &filename) {
 		std::string name = std::string(recordHeader.name, recordHeader.name + 4);
 		if (!isValid(name))
 		{
-			std::cout << "Unknown record: " << std::string(recordHeader.name, recordHeader.name + 4) << std::endl;
+			//std::cout << "Unknown record: " << std::string(recordHeader.name, recordHeader.name + 4) << std::endl;
 			break;
 		}
 		elements[std::string(recordHeader.name, recordHeader.name + 4)] = elements[std::string(recordHeader.name, recordHeader.name + 4)] + 1;
@@ -1530,7 +1530,7 @@ void readESM(const std::string &filename) {
 		std::vector<char> buffer(recordHeader.size);
 		if (file.read(buffer.data(), recordHeader.size))
 		{
-			std::cout << "Data loaded: " << buffer.size() << " bytes" << std::endl;
+			//std::cout << "Data loaded: " << buffer.size() << " bytes" << std::endl;
 
 			if (name == "TES3") parseTES3(buffer);
 			if (name == "GMST") parseGMST(buffer);
@@ -1577,7 +1577,7 @@ void readESM(const std::string &filename) {
 		}
 		else
 		{
-			std::cout << "Error loading data" << std::endl;
+			//std::cout << "Error loading data" << std::endl;
 			break;
 		}
 	}
@@ -1628,10 +1628,10 @@ void readESM(const std::string &filename) {
 	originals["DIAL"] = 772;
 	originals["INFO"] = 3408;
 
-	std::map<std::string, int>::iterator it;
-	for (it = elements.begin(); it != elements.end(); it++) {
-		std::cout << it->first << " : " << it->second << " (" << originals[it->first] << ")" << std::endl;
-	}
+	//std::map<std::string, int>::iterator it;
+	//for (it = elements.begin(); it != elements.end(); it++) {
+		//std::cout << it->first << " : " << it->second << " (" << originals[it->first] << ")" << std::endl;
+	//}
 
 }
 
