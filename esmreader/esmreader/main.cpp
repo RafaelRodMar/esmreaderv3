@@ -7,11 +7,16 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <map>
 #include <time.h>
+#include "esmreader.h"
 #include "game.h"
 #include "json.hpp"
 #include <chrono>
 #include <random>
+
+#include "esmreader.cpp"
 
 class Rnd {
 public:
@@ -138,8 +143,6 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	entities.push_back(c2);
 	entities.push_back(c3);
 	entities.push_back(c4);
-
-	ReadHiScores();
 	
 	state = MENU;
 
@@ -167,6 +170,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	std::ofstream o("assets.json");
 	o << std::setw(4) << j << std::endl;*/
 
+	readESM("c:/JuegosEstudio/Morrowind/Data Files/morrowind.esm");
+
 	return true;
 }
 
@@ -183,7 +188,7 @@ void Game::render()
 			////Show hi scores
 			int y = 350;
 			AssetsManager::Instance()->Text("HiScores", "font", 580 - 50, y, SDL_Color({ 255,255,255,0 }), getRenderer());
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < vhiscores.size(); i++) {
 				y += 30;
 				AssetsManager::Instance()->Text(std::to_string(vhiscores[i]), "font", 580, y, SDL_Color({ 255,255,255,0 }), getRenderer());
 			}
@@ -221,7 +226,6 @@ void Game::quit()
 
 void Game::clean()
 {
-	WriteHiScores();
 	std::cout << "cleaning game\n";
 	InputHandler::Instance()->clean();
 	AssetsManager::Instance()->clearFonts();
@@ -397,7 +401,7 @@ int main(int argc, char* args[])
 	Uint32 frameStart, frameTime;
 
 	std::cout << "game init attempt...\n";
-	if (Game::Instance()->init("SDLHenway", 100, 100, 465, 400,
+	if (Game::Instance()->init("Elder Scrolls Master (ESM) file reader", 100, 100, 1024, 768,
 		false))
 	{
 		std::cout << "game init success!\n";

@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="AssetsManager.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="esmreader.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="json.hpp" />
