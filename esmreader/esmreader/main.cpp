@@ -170,7 +170,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	std::ofstream o("assets.json");
 	o << std::setw(4) << j << std::endl;*/
 
-	readESM("c:/JuegosEstudio/Morrowind/Data Files/morrowind.esm");
+	//readESM("c:/JuegosEstudio/Morrowind/Data Files/morrowind.esm");
 
 	return true;
 }
@@ -254,10 +254,12 @@ void Game::handleEvents()
 
 	if (state == GAME)
 	{
-		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) p->m_velocity.m_x = 2;
-		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) p->m_velocity.m_x = -2;
-		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) p->m_velocity.m_y = -2;
-		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) p->m_velocity.m_y = 2;
+		for (auto i = entities.begin(); i != entities.end(); i++)
+		{
+			Entity *e = *i;
+
+			e->handleEvents();
+		}
 	}
 
 	if (state == END_GAME)

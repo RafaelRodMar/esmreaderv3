@@ -61,8 +61,8 @@ public:
 		m_currentFrame = cframe;
 	}
 
+	virtual void handleEvents();
 	virtual void update();
-
 	virtual void draw();
 
 	virtual ~Entity() {};
@@ -118,6 +118,7 @@ public:
 
 	void update();
 	void draw();
+	void handleEvents();
 
 };
 

@@ -1,7 +1,12 @@
 #include "Entity.h"
+#include "InputHandler.h"
 #include "game.h"
 
 float DEGTORAD = 0.017453f; //pi/180
+
+void Entity::handleEvents() {
+	//default function
+}
 
 void Entity::update()
 {
@@ -47,6 +52,13 @@ void bullet::draw()
 {
 	AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height,
 		m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle+90, m_alpha, SDL_FLIP_NONE);
+}
+
+void player::handleEvents(){
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) m_velocity.m_x = 2;
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) m_velocity.m_x = -2;
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) m_velocity.m_y = -2;
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) m_velocity.m_y = 2;
 }
 
 void player::update()
