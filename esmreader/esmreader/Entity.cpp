@@ -107,7 +107,7 @@ void Button::handleEvents(){
 	if(Game::Instance()->mouseClicked)
 	{
 		Vector2D* v = InputHandler::Instance()->getMousePosition();
-		if ( v->getX() > m_position.m_x &&  v->getX() < m_position.m_x + 100 && v->getY() > m_position.m_y && v->getY() < m_position.m_y + 50 )
+		if ( v->getX() > m_position.m_x &&  v->getX() < m_position.m_x + m_width && v->getY() > m_position.m_y && v->getY() < m_position.m_y + m_height )
 		{
 			AssetsManager::Instance()->playSound("bok",0);
 			InputHandler::Instance()->setMouseButtonStatesToFalse();
