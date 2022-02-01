@@ -48,6 +48,11 @@ public:
 	// mouse events
 	bool getMouseButtonState(int buttonNumber) const;
 	Vector2D* getMousePosition() const;
+	void setMouseButtonStatesToFalse(){
+		m_mouseButtonStates[0] = false;
+		m_mouseButtonStates[1] = false;
+		m_mouseButtonStates[2] = false;
+	}
 
 private:
 

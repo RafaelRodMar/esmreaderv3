@@ -122,3 +122,15 @@ public:
 
 };
 
+class Button : public Entity{
+	public:
+
+	Button(){
+		m_name = "Button";
+	}
+
+	void update();
+	void draw();
+	void handleEvents();
+};
+

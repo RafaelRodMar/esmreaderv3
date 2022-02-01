@@ -13,7 +13,8 @@
         "car4": "car4.png",
         "chicken": "chicken.png",
         "chickenhead": "chickenhead.png",
-        "highway": "highway.png"
+        "highway": "highway.png",
+	"button": "button.png"
     },
     "mus": {
         "music": "music.ogg"

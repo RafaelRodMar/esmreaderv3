@@ -98,3 +98,30 @@ void car::update()
 			m_position.m_y = 0;
 	}
 }
+
+void Button::handleEvents(){
+	/*if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) m_velocity.m_x = 2;
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) m_velocity.m_x = -2;
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) m_velocity.m_y = -2;
+	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) m_velocity.m_y = 2;*/
+	if(Game::Instance()->mouseClicked)
+	{
+		Vector2D* v = InputHandler::Instance()->getMousePosition();
+		if ( v->getX() > m_position.m_x &&  v->getX() < m_position.m_x + 100 && v->getY() > m_position.m_y && v->getY() < m_position.m_y + 50 )
+		{
+			AssetsManager::Instance()->playSound("bok",0);
+			InputHandler::Instance()->setMouseButtonStatesToFalse();
+			Game::Instance()->mouseClicked = false;
+		}
+	}
+}
+
+void Button::update()
+{
+}
+
+void Button::draw()
+{
+	AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height, 
+		m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_NONE);
+}

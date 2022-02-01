@@ -131,7 +131,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	entities.push_back(p);
 
 	//car creation
-	c1 = new car();
+	/*c1 = new car();
 	c2 = new car();
 	c3 = new car();
 	c4 = new car();
@@ -142,7 +142,14 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	entities.push_back(c1);
 	entities.push_back(c2);
 	entities.push_back(c3);
-	entities.push_back(c4);
+	entities.push_back(c4);*/
+
+	b1 = new Button();
+	b2 = new Button();
+	b1->settings("button", Vector2D(0,0), Vector2D(0,0), 100,50, 0,0,0,0.0,0);
+	b2->settings("button", Vector2D(200,200), Vector2D(0,0), 100,50, 0,0,0,0.0,0);
+	entities.push_back(b1);
+	entities.push_back(b2);
 	
 	state = MENU;
 
@@ -248,18 +255,28 @@ void Game::handleEvents()
 			state = GAME;
 			lives = 3;
 			score = 0;
-			AssetsManager::Instance()->playMusic("music", 1);
+			//AssetsManager::Instance()->playMusic("music", 1);
 		}
 	}
 
 	if (state == GAME)
 	{
+		if (InputHandler::Instance()->getMouseButtonState(LEFT))
+		{
+			mouseClicked = true;
+			mousepos.m_x = InputHandler::Instance()->getMousePosition()->m_x;
+			mousepos.m_y = InputHandler::Instance()->getMousePosition()->m_y;
+		}
+		
 		for (auto i = entities.begin(); i != entities.end(); i++)
 		{
 			Entity *e = *i;
 
 			e->handleEvents();
 		}
+
+		InputHandler::Instance()->setMouseButtonStatesToFalse();
+		Game::Instance()->mouseClicked = false;
 	}
 
 	if (state == END_GAME)
