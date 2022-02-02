@@ -147,7 +147,13 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	b1 = new Button();
 	b2 = new Button();
 	b1->settings("button", Vector2D(0,0), Vector2D(0,0), 100,50, 0,0,0,0.0,0);
+	b1->m_text = "botón 1";
+	b1->m_font = "font";
+	b1->autoSize();
 	b2->settings("button", Vector2D(200,200), Vector2D(0,0), 100,50, 0,0,0,0.0,0);
+	b2->m_text = "botón 2 extendido";
+	b2->m_font = "font";
+	b2->autoSize();
 	entities.push_back(b1);
 	entities.push_back(b2);
 	
@@ -311,17 +317,17 @@ void Game::update()
 		//play some random car horns
 		if (rnd.getRndInt(0, 100) == 0)
 		{
-			if (rnd.getRndInt(0, 1) == 0)
+			/*if (rnd.getRndInt(0, 1) == 0)
 				AssetsManager::Instance()->playSound("carhorn1", 0);
 			else
-				AssetsManager::Instance()->playSound("carhorn2", 0);
+				AssetsManager::Instance()->playSound("carhorn2", 0);*/
 		}
 
 		// See if the chicken made it across
 		if (p->m_position.m_x > 400.0)
 		{
 			// Play a sound for the chicken making it safely across
-			AssetsManager::Instance()->playSound("celebrate", 0);
+			//AssetsManager::Instance()->playSound("celebrate", 0);
 
 			// Move the chicken back to the start and add to the score
 			p->m_position.m_x = 4; p->m_position.m_y = 175;
@@ -338,12 +344,12 @@ void Game::update()
 						lives--;
 						if (lives <= 0)
 						{
-							AssetsManager::Instance()->playSound("gameover", 0);
+							//AssetsManager::Instance()->playSound("gameover", 0);
 							state = END_GAME;
 						}
 						else
 						{
-							AssetsManager::Instance()->playSound("squish", 0);
+							//AssetsManager::Instance()->playSound("squish", 0);
 						}
 
 						//relocate the chicken

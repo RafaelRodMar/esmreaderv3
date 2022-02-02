@@ -157,6 +157,13 @@ SDL_Texture* AssetsManager::renderText(const std::string &message, const std::st
 	return texture;
 }
 
+std::pair<int, int> AssetsManager::getTextSize(const std::string &message, const std::string &font, SDL_Color color, SDL_Renderer *renderer) {
+	SDL_Texture* sf = renderText(message.c_str(), font, color, renderer);
+	int texturewidth, textureheight;
+	SDL_QueryTexture(sf, NULL, NULL, &texturewidth, &textureheight);
+	return std::make_pair(texturewidth, textureheight);
+}
+
 void AssetsManager::Text(const std::string &message, const std::string &font, int x, int y, SDL_Color color, SDL_Renderer *renderer)
 {
 	SDL_Rect *sr = new SDL_Rect();

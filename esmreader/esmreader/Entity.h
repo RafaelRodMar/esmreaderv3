@@ -125,6 +125,9 @@ public:
 class Button : public Entity{
 	public:
 
+	std::string m_text = "";
+	std::string m_font = "";
+
 	Button(){
 		m_name = "Button";
 	}
@@ -132,5 +135,7 @@ class Button : public Entity{
 	void update();
 	void draw();
 	void handleEvents();
+
+	void autoSize();
 };
 
