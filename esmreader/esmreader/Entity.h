@@ -35,7 +35,7 @@ public:
 	int m_alpha = 255;
 
 	//game variables
-	int m_radius;
+	int m_radius = 1;
 	bool m_life;
 	bool m_shield;
 	int m_shieldTime;
@@ -48,7 +48,7 @@ public:
 		m_shield = false;
 	}
 
-	void settings(const string &Texture, Vector2D pos, Vector2D vel, int Width, int Height, int nFrames, int row, int cframe, double Angle = 0, int radius = 1)
+	void settings(const string &Texture, Vector2D pos, Vector2D vel, int Width, int Height, int nFrames, int row, int cframe, double Angle, int radius)
 	{
 		m_textureID = Texture;
 		m_position = pos;
@@ -131,6 +131,9 @@ class Button : public Entity{
 	Button(){
 		m_name = "Button";
 	}
+
+	void buttonSettings(const string &Texture, Vector2D pos, Vector2D vel, int Width, int Height, int nFrames, 
+						int row, int cframe, double Angle, int radius, std::string text, std::string font, bool autoSize);
 
 	void update();
 	void draw();

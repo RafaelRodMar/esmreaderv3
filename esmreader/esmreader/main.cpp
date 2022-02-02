@@ -126,9 +126,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	AssetsManager::Instance()->loadAssetsJson(); //ahora con formato json
 	Mix_Volume(-1, 16); //adjust sound/music volume for all channels
 
-	p = new player();
+	/*p = new player();
 	p->settings("chicken", Vector2D(4, 175), Vector2D(0,0), 58, 58, 0, 0, 0, 0.0, 0);
-	entities.push_back(p);
+	entities.push_back(p);*/
 
 	//car creation
 	/*c1 = new car();
@@ -146,18 +146,12 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 
 	b1 = new Button();
 	b2 = new Button();
-	b1->settings("button", Vector2D(0,0), Vector2D(0,0), 100,50, 0,0,0,0.0,0);
-	b1->m_text = "botón 1";
-	b1->m_font = "font";
-	b1->autoSize();
-	b2->settings("button", Vector2D(200,200), Vector2D(0,0), 100,50, 0,0,0,0.0,0);
-	b2->m_text = "botón 2 extendido";
-	b2->m_font = "font";
-	b2->autoSize();
+	b1->buttonSettings("button", Vector2D(0,0), Vector2D(0,0), 100,50, 0,0,0,0.0,0, "botón 1", "font", true);
+	b2->buttonSettings("button", Vector2D(200,200), Vector2D(0,0), 100,50, 0,0,0,0.0,0, "botón 2 extendido", "font", true);
 	entities.push_back(b1);
 	entities.push_back(b2);
 	
-	state = MENU;
+	state = GAME;
 
 	//crear el archivo json
 	/*nlohmann::json j;
@@ -196,15 +190,15 @@ void Game::render()
 
 		if (state == MENU)
 		{
-			AssetsManager::Instance()->Text("Menu , press S to play", "font", 100, 100, SDL_Color({ 0,0,0,0 }), getRenderer());
+			//AssetsManager::Instance()->Text("Menu , press S to play", "font", 100, 100, SDL_Color({ 0,0,0,0 }), getRenderer());
 
 			////Show hi scores
-			int y = 350;
+			/*int y = 350;
 			AssetsManager::Instance()->Text("HiScores", "font", 580 - 50, y, SDL_Color({ 255,255,255,0 }), getRenderer());
 			for (int i = 0; i < vhiscores.size(); i++) {
 				y += 30;
 				AssetsManager::Instance()->Text(std::to_string(vhiscores[i]), "font", 580, y, SDL_Color({ 255,255,255,0 }), getRenderer());
-			}
+			}*/
 		}
 
 		if (state == GAME)
@@ -213,20 +207,20 @@ void Game::render()
 				i->draw();
 
 			// draw the lives
-			int dx = 20;
+			/*int dx = 20;
 			for (int i = 0; i < lives; i++) {
 				AssetsManager::Instance()->draw("chickenhead", 200 + dx, 10, 18, 16, Game::getRenderer());
 				dx += 20;
-			}
+			}*/
 
 			// Draw the score
-			std::string sc = "Score: " + std::to_string(score);
-			AssetsManager::Instance()->Text(sc, "font", 0, 0, SDL_Color({ 255,255,255,0 }), getRenderer());
+			/*std::string sc = "Score: " + std::to_string(score);
+			AssetsManager::Instance()->Text(sc, "font", 0, 0, SDL_Color({ 255,255,255,0 }), getRenderer());*/
 		}
 
 		if (state == END_GAME)
 		{
-			AssetsManager::Instance()->Text("End Game press space", "font", 100, 100, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+			//AssetsManager::Instance()->Text("End Game press space", "font", 100, 100, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
 		}
 
 	SDL_RenderPresent(m_pRenderer); // draw to the screen
@@ -259,8 +253,8 @@ void Game::handleEvents()
 		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_S))
 		{
 			state = GAME;
-			lives = 3;
-			score = 0;
+			/*lives = 3;
+			score = 0;*/
 			//AssetsManager::Instance()->playMusic("music", 1);
 		}
 	}
@@ -315,48 +309,48 @@ void Game::update()
 	{
 
 		//play some random car horns
-		if (rnd.getRndInt(0, 100) == 0)
+		/*if (rnd.getRndInt(0, 100) == 0)
 		{
-			/*if (rnd.getRndInt(0, 1) == 0)
+			if (rnd.getRndInt(0, 1) == 0)
 				AssetsManager::Instance()->playSound("carhorn1", 0);
 			else
-				AssetsManager::Instance()->playSound("carhorn2", 0);*/
-		}
+				AssetsManager::Instance()->playSound("carhorn2", 0);
+		}*/
 
 		// See if the chicken made it across
-		if (p->m_position.m_x > 400.0)
-		{
-			// Play a sound for the chicken making it safely across
-			//AssetsManager::Instance()->playSound("celebrate", 0);
+		//if (p->m_position.m_x > 400.0)
+		//{
+		//	// Play a sound for the chicken making it safely across
+		//	//AssetsManager::Instance()->playSound("celebrate", 0);
 
-			// Move the chicken back to the start and add to the score
-			p->m_position.m_x = 4; p->m_position.m_y = 175;
-			score += 150;
-		}
+		//	// Move the chicken back to the start and add to the score
+		//	p->m_position.m_x = 4; p->m_position.m_y = 175;
+		//	score += 150;
+		//}
 
 		for (auto a : entities)
 		{
 			for (auto b : entities)
 			{
-				if (a->m_name == "player" && b->m_name == "car")
-					if (isCollideRect(a, b))
-					{
-						lives--;
-						if (lives <= 0)
-						{
-							//AssetsManager::Instance()->playSound("gameover", 0);
-							state = END_GAME;
-						}
-						else
-						{
-							//AssetsManager::Instance()->playSound("squish", 0);
-						}
+				//if (a->m_name == "player" && b->m_name == "car")
+				//	if (isCollideRect(a, b))
+				//	{
+				//		lives--;
+				//		if (lives <= 0)
+				//		{
+				//			//AssetsManager::Instance()->playSound("gameover", 0);
+				//			state = END_GAME;
+				//		}
+				//		else
+				//		{
+				//			//AssetsManager::Instance()->playSound("squish", 0);
+				//		}
 
-						//relocate the chicken
-						p->m_position.m_x = 4; p->m_position.m_y = 175;
-						p->m_velocity.m_x = 0;
-						p->m_velocity.m_y = 0;
-					}
+				//		//relocate the chicken
+				//		p->m_position.m_x = 4; p->m_position.m_y = 175;
+				//		p->m_velocity.m_x = 0;
+				//		p->m_velocity.m_y = 0;
+				//	}
 			}
 		}
 

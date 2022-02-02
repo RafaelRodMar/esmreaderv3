@@ -203,7 +203,7 @@ void AssetsManager::loadAssets()
 			if (datatype == "img") loadTexture("assets/img/" + filename, name, Game::Instance()->getRenderer());
 			if (datatype == "snd") loadSound("assets/snd/" + filename, name, SOUND_SFX);
 			if (datatype == "mus") loadSound("assets/mus/" + filename, name, SOUND_MUSIC);
-			if (datatype == "fnt") loadFont("assets/fnt/" + filename, name, 24);
+			if (datatype == "fnt") loadFont("assets/fnt/" + filename, name, 12);
 		}
 		in.close();
 	}
@@ -247,7 +247,7 @@ void AssetsManager::loadAssetsJson()
 				if (type[i] == "img") loadTexture("assets/img/" + filename, name, Game::Instance()->getRenderer());
 				if (type[i] == "snd") loadSound("assets/snd/" + filename, name, SOUND_SFX);
 				if (type[i] == "mus") loadSound("assets/mus/" + filename, name, SOUND_MUSIC);
-				if (type[i] == "fnt") loadFont("assets/fnt/" + filename, name, 24);
+				if (type[i] == "fnt") loadFont("assets/fnt/" + filename, name, 12);
 			}
 			
 		}
