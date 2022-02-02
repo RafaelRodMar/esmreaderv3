@@ -186,7 +186,7 @@ void Game::render()
 {
 	SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
 
-	AssetsManager::Instance()->draw("highway", 0, 0, 465, 400, m_pRenderer, SDL_FLIP_NONE);
+	//AssetsManager::Instance()->draw("highway", 0, 0, 465, 400, m_pRenderer, SDL_FLIP_NONE);
 
 		if (state == MENU)
 		{

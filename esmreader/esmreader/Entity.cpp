@@ -124,20 +124,32 @@ void Button::draw()
 {
 	/* AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height, 
 		m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_NONE); */
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(Game::Instance()->getRenderer(), &r, &g, &b, &a);
+
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 128, 128, 128, 0);
+	SDL_Rect* rect = new SDL_Rect();
+	rect->x = m_position.m_x;
+	rect->y = m_position.m_y;
+	rect->w = m_width;
+	rect->h = m_height;
+	SDL_RenderFillRect(Game::Instance()->getRenderer(), rect);
+	delete(rect);
 
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y, m_position.m_x + m_width, m_position.m_y);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y, m_position.m_x , m_position.m_y + m_height);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x + m_width, m_position.m_y, m_position.m_x + m_width, m_position.m_y + m_height);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y + m_height, m_position.m_x + m_width, m_position.m_y + m_height);
-	AssetsManager::Instance()->Text(m_text, "font", m_position.m_x, m_position.m_y, SDL_Color({190,34,12,0}), Game::Instance()->getRenderer());
+	AssetsManager::Instance()->Text(m_text, "font", m_position.m_x + 5, m_position.m_y + 5, SDL_Color({0,0,0,0}), Game::Instance()->getRenderer());
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
 }
 
 void Button::autoSize()
 {
 	std::pair<int, int> p;
 	p = AssetsManager::Instance()->getTextSize(m_text, m_font, SDL_Color({ 190,34,12,0 }), Game::Instance()->getRenderer());
-	m_width = p.first;
-	m_height = p.second;
+	m_width = p.first + 10;
+	m_height = p.second + 10;
 }
 
 void Button::buttonSettings(const string &Texture, Vector2D pos, Vector2D vel, int Width, int Height, int nFrames, 
