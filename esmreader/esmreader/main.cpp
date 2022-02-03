@@ -41,6 +41,16 @@ public:
 	}
 } rnd;
 
+//Timer control
+#define Now() chrono::high_resolution_clock::now()
+struct Stopwatch {
+	chrono::high_resolution_clock::time_point c_time, c_timeout;
+	void Start(uint64_t us) { c_time = Now(); c_timeout = c_time + chrono::microseconds(us); }
+	void setTimeout(uint64_t us) { c_timeout = c_time + chrono::microseconds(us); }
+	inline bool Timeout() { return Now() > c_timeout; }
+	long long EllapsedMilliseconds() { return chrono::duration_cast<chrono::milliseconds>(Now() - c_time).count(); }
+} stopwatch;
+
 //la clase juego:
 Game* Game::s_pInstance = 0;
 
@@ -199,7 +209,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	std::ofstream o("assets.json");
 	o << std::setw(4) << j << std::endl;*/
 
-	//readESM("c:/JuegosEstudio/Morrowind/Data Files/morrowind.esm");
+	/*Stopwatch st;
+	st.Start(0);
+	readESM("c:/JuegosEstudio/Morrowind/Data Files/morrowind.esm");
+	std::cout << "Time file read: " << st.EllapsedMilliseconds() << std::endl;*/
 
 	return true;
 }
@@ -463,7 +476,7 @@ int main(int argc, char* args[])
 			{
 				//con tiempo fijo el retraso es 1000 / 60 = 16,66
 				//procesar handleEvents, update y render tarda 1, y hay que esperar 15
-				cout << "frameTime : " << frameTime << "  delay : " << (int)(DELAY_TIME - frameTime) << endl;
+				//cout << "frameTime : " << frameTime << "  delay : " << (int)(DELAY_TIME - frameTime) << endl;
 				SDL_Delay((int)(DELAY_TIME - frameTime)); //esperamos hasta completar los 60 fps
 			}
 		}
