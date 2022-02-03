@@ -140,5 +140,6 @@ class Button : public Entity{
 	void handleEvents();
 
 	void autoSize();
+	bool mouseOver = false;
 };
 

@@ -144,12 +144,34 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	entities.push_back(c3);
 	entities.push_back(c4);*/
 
-	b1 = new Button();
+	/* b1 = new Button();
 	b2 = new Button();
 	b1->buttonSettings("button", Vector2D(0,0), Vector2D(0,0), 100,50, 0,0,0,0.0,0, "botón 1", "font", true);
 	b2->buttonSettings("button", Vector2D(200,200), Vector2D(0,0), 100,50, 0,0,0,0.0,0, "botón 2 extendido", "font", true);
 	entities.push_back(b1);
-	entities.push_back(b2);
+	entities.push_back(b2); */
+
+	std::vector<std::string> themes = {"NPC", "Creature", "Leveled Creature", "Spellmaking", "Enchanting", "Alchemy", "Leveled Item", "Activator", "Apparatus", "Armor", 
+							"Body Part", "Book", "Clothing", "Container", "Door", "Ingredient", "Light", "Lockpick", "Misc Item", "Probe", "Repair Item", "Static", "Weapon",
+							"Cell"};
+
+	int themex = 0;
+	int themey = 0;
+	int incry = 0;
+	Button* b;
+	for(int i=0;i<themes.size();i++){
+		b = new Button();
+
+		b->buttonSettings("button", Vector2D(themex,themey), Vector2D(0,0), 100,50, 0,0,0,0.0,0, themes[i], "font", true);
+		themex += b->m_width + 5;
+		if(themex > 520)
+		{
+			themex = 0;
+			themey += b->m_height + 5;
+		}
+
+		entities.push_back(b);
+	}
 	
 	state = GAME;
 
@@ -184,7 +206,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 
 void Game::render()
 {
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 255, 255, 255, 0);
 	SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 0, 0, 0, 0);
 
 	//AssetsManager::Instance()->draw("highway", 0, 0, 465, 400, m_pRenderer, SDL_FLIP_NONE);
 
@@ -234,6 +258,7 @@ void Game::quit()
 void Game::clean()
 {
 	std::cout << "cleaning game\n";
+	for(auto x : entities) delete(x);
 	InputHandler::Instance()->clean();
 	AssetsManager::Instance()->clearFonts();
 	TTF_Quit();

@@ -104,6 +104,7 @@ void Button::handleEvents(){
 	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT)) m_velocity.m_x = -2;
 	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) m_velocity.m_y = -2;
 	if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) m_velocity.m_y = 2;*/
+	mouseOver = false;
 	if(Game::Instance()->mouseClicked)
 	{
 		Vector2D* v = InputHandler::Instance()->getMousePosition();
@@ -112,6 +113,14 @@ void Button::handleEvents(){
 			AssetsManager::Instance()->playSound("bok",0);
 			InputHandler::Instance()->setMouseButtonStatesToFalse();
 			Game::Instance()->mouseClicked = false;
+		}
+	}
+	else
+	{
+		Vector2D* v = InputHandler::Instance()->getMousePosition();
+		if (v->getX() > m_position.m_x &&  v->getX() < m_position.m_x + m_width && v->getY() > m_position.m_y && v->getY() < m_position.m_y + m_height)
+		{
+			mouseOver = true;
 		}
 	}
 }
@@ -136,12 +145,14 @@ void Button::draw()
 	SDL_RenderFillRect(Game::Instance()->getRenderer(), rect);
 	delete(rect);
 
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y, m_position.m_x + m_width, m_position.m_y);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y, m_position.m_x , m_position.m_y + m_height);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x + m_width, m_position.m_y, m_position.m_x + m_width, m_position.m_y + m_height);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y + m_height, m_position.m_x + m_width, m_position.m_y + m_height);
-	AssetsManager::Instance()->Text(m_text, "font", m_position.m_x + 5, m_position.m_y + 5, SDL_Color({0,0,0,0}), Game::Instance()->getRenderer());
-	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
+	SDL_Color cl = { 0,0,0,0 };
+	if (mouseOver) cl = { 0,0,255,0 };
+	AssetsManager::Instance()->Text(m_text, "font", m_position.m_x + 5, m_position.m_y + 5, cl, Game::Instance()->getRenderer());
 }
 
 void Button::autoSize()

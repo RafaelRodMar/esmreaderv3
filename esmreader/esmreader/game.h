@@ -55,7 +55,7 @@ private:
 
 	player *p;
 	car *c1, *c2, *c3, *c4;
-	Button *b1, *b2;
+	//Button *b1, *b2;
 	int state = -1;
 	std::vector<int> vhiscores;
 	int lives, score;
