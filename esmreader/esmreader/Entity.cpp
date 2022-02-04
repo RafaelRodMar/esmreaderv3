@@ -113,6 +113,7 @@ void Button::handleEvents(){
 			AssetsManager::Instance()->playSound("bok",0);
 			InputHandler::Instance()->setMouseButtonStatesToFalse();
 			Game::Instance()->mouseClicked = false;
+			Game::Instance()->lastButtonClicked = m_text;
 		}
 	}
 	else
@@ -137,6 +138,7 @@ void Button::draw()
 	SDL_GetRenderDrawColor(Game::Instance()->getRenderer(), &r, &g, &b, &a);
 
 	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 128, 128, 128, 0);
+	if (Game::Instance()->lastButtonClicked == m_text) SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 255, 234, 0, 0);
 	SDL_Rect* rect = new SDL_Rect();
 	rect->x = m_position.m_x;
 	rect->y = m_position.m_y;

@@ -46,6 +46,7 @@ public:
 
 	bool mouseClicked = false;
 	Vector2D mousepos;
+	std::string lastButtonClicked = "";
 
 private:
 	Game();

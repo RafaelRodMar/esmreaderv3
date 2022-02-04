@@ -213,6 +213,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	st.Start(0);
 	readESM("c:/JuegosEstudio/Morrowind/Data Files/morrowind.esm");
 	std::cout << "Time file read: " << st.EllapsedMilliseconds() << std::endl;*/
+	//68759 tiempo tienda
 
 	return true;
 }
@@ -242,6 +243,11 @@ void Game::render()
 		{
 			for (auto i : entities)
 				i->draw();
+
+			if (Game::Instance()->lastButtonClicked == "Activator")
+			{
+				AssetsManager::Instance()->Text("Activator", "font", 5, 100, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
 
 			// draw the lives
 			/*int dx = 20;
