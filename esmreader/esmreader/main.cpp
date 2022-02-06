@@ -187,7 +187,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	}
 
 	showControl = new ShowControl;
-	showControl->settings("showControl", Vector2D(0, 0), Vector2D(0, 0), 1, 1, 0, 0, 0, 0.0, 0);
+	showControl->settings("showControl", Vector2D(0, 150), Vector2D(0, 0), 1, 1, 0, 0, 0, 0.0, 0);
 	entities.push_back(showControl);
 	
 	state = GAME;
@@ -424,7 +424,12 @@ void Game::render()
 			if (Game::Instance()->lastButtonClicked == "Birthsign")
 			{
 				//AssetsManager::Instance()->Text("Birthsign", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
-				birthSignVisualizer.show();
+				//birthSignVisualizer.show();
+				if (showControl->tag != "Birthsign")
+				{
+					//pass data to the showControl
+					showControl->tag = "Birthsign";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Landscape Texture")

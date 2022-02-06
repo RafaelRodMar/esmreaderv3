@@ -189,10 +189,7 @@ void ShowControl::draw()
 	delete(rect);*/
 
 	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
-	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit, yinit, xinit + 500, yinit);
-	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit, yinit, xinit, yinit + 600);
-	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit + 500, yinit, xinit + 500, yinit + 600);
-	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit, yinit + 600, xinit + 500, yinit + 600);
+	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y - 1, m_position.m_x + 1024, m_position.m_y - 1);
 	//AssetsManager::Instance()->Text(m_text, "font", m_position.m_x + 5, m_position.m_y + 5, cl, Game::Instance()->getRenderer());
 }
 

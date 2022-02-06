@@ -147,10 +147,31 @@ class ShowControl : public Entity {
 public:
 	int xinit = 0;
 	int yinit = 150;
-	void setHeaders(std::vector<std::string> headers);
+	std::string tag = "";
+	std::vector<std::string> headers;
+	std::vector< std::vector<std::string> > data;
+
+	ShowControl() {
+		xinit = m_position.m_x;
+		yinit = m_position.m_y;
+	}
 
 	void update();
 	void draw();
 	void handleEvents();
+
+	void reset() {
+		//clear the vectors and give them size 0 swapping with a empty vector.
+		std::vector<std::string>().swap(headers);
+		std::vector< std::vector<std::string> >().swap(data);
+		xinit = m_position.m_x = 0;
+		yinit = m_position.m_y = 150;
+	}
+	void setHeaders(std::vector<std::string>& h) {
+		headers = h;
+	}
+	void setData(std::vector< std::vector<std::string> >& d) {
+		data = d;
+	}
 };
 
