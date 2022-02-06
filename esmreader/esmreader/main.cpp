@@ -17,6 +17,7 @@
 #include <random>
 
 #include "esmreader.cpp"
+#include "visualizers.cpp"
 
 class Rnd {
 public:
@@ -163,7 +164,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 
 	std::vector<std::string> themes = {"NPC", "Creature", "Leveled Creature", "Spellmaking", "Enchanting", "Alchemy", "Leveled Item", "Activator", "Apparatus", "Armor", 
 							"Body Part", "Book", "Clothing", "Container", "Door", "Ingredient", "Light", "Lockpick", "Misc Item", "Probe", "Repair Item", "Static", "Weapon",
-							"Cell"};
+							"Cell", "Game Settings", "Global", "Class", "Faction", "Race", "Sound", "Skill", "Magic Effects", 
+							"Script", "Region", "Birthsign", "Landscape Texture", "Landscape", "Path Grid", 
+							"Sound Generator", "Spell", "Dialog"};
 
 	int themex = 0;
 	int themey = 0;
@@ -182,6 +185,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 
 		entities.push_back(b);
 	}
+
+	showControl = new ShowControl;
+	showControl->settings("showControl", Vector2D(0, 0), Vector2D(0, 0), 1, 1, 0, 0, 0, 0.0, 0);
+	entities.push_back(showControl);
 	
 	state = GAME;
 
@@ -209,10 +216,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 	std::ofstream o("assets.json");
 	o << std::setw(4) << j << std::endl;*/
 
-	/*Stopwatch st;
+	Stopwatch st;
 	st.Start(0);
 	readESM("c:/JuegosEstudio/Morrowind/Data Files/morrowind.esm");
-	std::cout << "Time file read: " << st.EllapsedMilliseconds() << std::endl;*/
+	std::cout << "Time file read: " << st.EllapsedMilliseconds() << std::endl;
 	//68759 tiempo tienda
 
 	return true;
@@ -244,21 +251,215 @@ void Game::render()
 			for (auto i : entities)
 				i->draw();
 
-			if (Game::Instance()->lastButtonClicked == "Activator")
+			if (Game::Instance()->lastButtonClicked == "NPC")
 			{
-				AssetsManager::Instance()->Text("Activator", "font", 5, 100, SDL_Color({ 0,0,0,0 }), getRenderer());
+				AssetsManager::Instance()->Text("NPC", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 			}
 
-			// draw the lives
-			/*int dx = 20;
-			for (int i = 0; i < lives; i++) {
-				AssetsManager::Instance()->draw("chickenhead", 200 + dx, 10, 18, 16, Game::getRenderer());
-				dx += 20;
-			}*/
+			if (Game::Instance()->lastButtonClicked == "Creature")
+			{
+				AssetsManager::Instance()->Text("Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
 
-			// Draw the score
-			/*std::string sc = "Score: " + std::to_string(score);
-			AssetsManager::Instance()->Text(sc, "font", 0, 0, SDL_Color({ 255,255,255,0 }), getRenderer());*/
+			if (Game::Instance()->lastButtonClicked == "Leveled Creature")
+			{
+				AssetsManager::Instance()->Text("Leveled Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Spellmaking")
+			{
+				AssetsManager::Instance()->Text("Spellmaking", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Enchanting")
+			{
+				AssetsManager::Instance()->Text("Enchanting", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Alchemy")
+			{
+				AssetsManager::Instance()->Text("Alchemy", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Leveled Item")
+			{
+				AssetsManager::Instance()->Text("Leveled Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Activator")
+			{
+				AssetsManager::Instance()->Text("Activator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Apparatus")
+			{
+				AssetsManager::Instance()->Text("Apparatus", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Armor")
+			{
+				AssetsManager::Instance()->Text("Armor", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Body Part")
+			{
+				AssetsManager::Instance()->Text("Body Part", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Book")
+			{
+				AssetsManager::Instance()->Text("Book", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Clothing")
+			{
+				AssetsManager::Instance()->Text("Clothing", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Container")
+			{
+				AssetsManager::Instance()->Text("Container", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Door")
+			{
+				AssetsManager::Instance()->Text("Door", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Ingredient")
+			{
+				AssetsManager::Instance()->Text("Ingredient", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Light")
+			{
+				AssetsManager::Instance()->Text("Light", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Lockpick")
+			{
+				AssetsManager::Instance()->Text("Lockpick", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Misc Item")
+			{
+				AssetsManager::Instance()->Text("Misc Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Probe")
+			{
+				AssetsManager::Instance()->Text("Probe", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Repair Item")
+			{
+				AssetsManager::Instance()->Text("Repair Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Static")
+			{
+				AssetsManager::Instance()->Text("Static", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Weapon")
+			{
+				AssetsManager::Instance()->Text("Weapon", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Cell")
+			{
+				AssetsManager::Instance()->Text("Cell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Game Settings")
+			{
+				AssetsManager::Instance()->Text("Game Settings", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Global")
+			{
+				AssetsManager::Instance()->Text("Global", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Class")
+			{
+				AssetsManager::Instance()->Text("Class", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Faction")
+			{
+				AssetsManager::Instance()->Text("Faction", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Race")
+			{
+				AssetsManager::Instance()->Text("Race", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Sound")
+			{
+				AssetsManager::Instance()->Text("Sound", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Skill")
+			{
+				AssetsManager::Instance()->Text("Skill", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Magic Effects")
+			{
+				AssetsManager::Instance()->Text("Magic Effects", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Script")
+			{
+				AssetsManager::Instance()->Text("Script", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Region")
+			{
+				AssetsManager::Instance()->Text("Region", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Birthsign")
+			{
+				//AssetsManager::Instance()->Text("Birthsign", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				birthSignVisualizer.show();
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Landscape Texture")
+			{
+				AssetsManager::Instance()->Text("Landscape Texture", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Landscape")
+			{
+				AssetsManager::Instance()->Text("Landscape", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Path Grid")
+			{
+				AssetsManager::Instance()->Text("Path Grid", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Sound Generator")
+			{
+				AssetsManager::Instance()->Text("Sound Generator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Spell")
+			{
+				AssetsManager::Instance()->Text("Spell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			if (Game::Instance()->lastButtonClicked == "Dialog")
+			{
+				AssetsManager::Instance()->Text("Dialog", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+			}
+
+			mousepos.m_x = InputHandler::Instance()->getMousePosition()->m_x;
+			mousepos.m_y = InputHandler::Instance()->getMousePosition()->m_y;
+			AssetsManager::Instance()->Text(std::to_string(mousepos.m_x) + " " + std::to_string(mousepos.m_y), "font", mousepos.m_x, mousepos.m_y - 15, SDL_Color({ 0,0,0,0 }), getRenderer());
 		}
 
 		if (state == END_GAME)

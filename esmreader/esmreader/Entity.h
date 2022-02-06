@@ -143,3 +143,14 @@ class Button : public Entity{
 	bool mouseOver = false;
 };
 
+class ShowControl : public Entity {
+public:
+	int xinit = 0;
+	int yinit = 150;
+	void setHeaders(std::vector<std::string> headers);
+
+	void update();
+	void draw();
+	void handleEvents();
+};
+

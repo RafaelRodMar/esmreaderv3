@@ -172,3 +172,34 @@ void Button::buttonSettings(const string &Texture, Vector2D pos, Vector2D vel, i
 	settings(Texture, pos,vel, Width, Height, nFrames, row, cframe, Angle, radius);
 	if( autosize == true) autoSize();
 }
+
+void ShowControl::draw()
+{
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(Game::Instance()->getRenderer(), &r, &g, &b, &a);
+
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 128, 128, 128, 0);
+	/*if (Game::Instance()->lastButtonClicked == m_text) SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 255, 234, 0, 0);
+	SDL_Rect* rect = new SDL_Rect();
+	rect->x = m_position.m_x;
+	rect->y = m_position.m_y;
+	rect->w = m_width;
+	rect->h = m_height;
+	SDL_RenderFillRect(Game::Instance()->getRenderer(), rect);
+	delete(rect);*/
+
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
+	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit, yinit, xinit + 500, yinit);
+	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit, yinit, xinit, yinit + 600);
+	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit + 500, yinit, xinit + 500, yinit + 600);
+	SDL_RenderDrawLine(Game::Instance()->getRenderer(), xinit, yinit + 600, xinit + 500, yinit + 600);
+	//AssetsManager::Instance()->Text(m_text, "font", m_position.m_x + 5, m_position.m_y + 5, cl, Game::Instance()->getRenderer());
+}
+
+void ShowControl::update() {
+
+}
+
+void ShowControl::handleEvents() {
+
+}
