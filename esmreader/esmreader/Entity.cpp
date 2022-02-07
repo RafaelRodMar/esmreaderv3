@@ -180,14 +180,30 @@ void ShowControl::draw()
 
 	//draw headers
 	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 211, 211, 211, 0); //light gray
-	/*if (Game::Instance()->lastButtonClicked == m_text) SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 255, 234, 0, 0);
 	SDL_Rect* rect = new SDL_Rect();
 	rect->x = m_position.m_x;
 	rect->y = m_position.m_y;
-	rect->w = m_width;
-	rect->h = m_height;
+	rect->w = totalWidth;
+	rect->h = 22;
 	SDL_RenderFillRect(Game::Instance()->getRenderer(), rect);
-	delete(rect);*/
+	delete(rect);
+	int xhead = m_position.m_x;
+	for (int i = 0; i < headers.size();i++) {
+		AssetsManager::Instance()->Text(headers[i], "font", xhead, m_position.m_y + 5, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+		xhead += sizes[i];
+	}
+
+	int ydata = m_position.m_y + 20;
+	//draw data
+	xhead = m_position.m_x;
+	for (int i = 0; i < data.size(); i++) {
+		for (int j = 0; j < data[i].size(); j++) {
+			AssetsManager::Instance()->Text(data[i][j], "font", xhead, ydata, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+			xhead += sizes[i];
+		}
+		xhead = m_position.m_x;
+		ydata += 20;
+	}
 
 	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y - 1, m_position.m_x + 1024, m_position.m_y - 1);

@@ -150,6 +150,7 @@ public:
 	std::string tag = "";
 	std::vector<std::string> headers;
 	std::vector<int> sizes; //size of the columns
+	int totalWidth = 0;
 	std::vector< std::vector<std::string> > data;
 
 	ShowControl() {
@@ -165,12 +166,17 @@ public:
 		//clear the vectors and give them size 0 swapping with a empty vector.
 		std::vector<std::string>().swap(headers);
 		std::vector< std::vector<std::string> >().swap(data);
+		std::vector<int>().swap(sizes);
 		xinit = m_position.m_x = 0;
 		yinit = m_position.m_y = 150;
+		totalWidth = 0;
 	}
 	void setHeaders(std::vector<std::string>& h) {
 		headers = h;
-		for(int i=0;i<headers.size();i++) sizes.push_back(20); //columns default size
+		for (int i = 0; i < headers.size(); i++) {
+			sizes.push_back(100); //columns default size
+			totalWidth += 100;
+		}
 	}
 	void setData(std::vector< std::vector<std::string> >& d) {
 		data = d;
