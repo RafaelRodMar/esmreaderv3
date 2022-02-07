@@ -149,6 +149,7 @@ public:
 	int yinit = 150;
 	std::string tag = "";
 	std::vector<std::string> headers;
+	std::vector<int> sizes; //size of the columns
 	std::vector< std::vector<std::string> > data;
 
 	ShowControl() {
@@ -169,6 +170,7 @@ public:
 	}
 	void setHeaders(std::vector<std::string>& h) {
 		headers = h;
+		for(int i=0;i<headers.size();i++) sizes.push_back(20); //columns default size
 	}
 	void setData(std::vector< std::vector<std::string> >& d) {
 		data = d;

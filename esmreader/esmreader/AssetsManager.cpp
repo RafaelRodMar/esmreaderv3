@@ -161,6 +161,7 @@ std::pair<int, int> AssetsManager::getTextSize(const std::string &message, const
 	SDL_Texture* sf = renderText(message.c_str(), font, color, renderer);
 	int texturewidth, textureheight;
 	SDL_QueryTexture(sf, NULL, NULL, &texturewidth, &textureheight);
+	SDL_DestroyTexture(sf);
 	return std::make_pair(texturewidth, textureheight);
 }
 

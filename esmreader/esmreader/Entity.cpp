@@ -178,7 +178,8 @@ void ShowControl::draw()
 	Uint8 r, g, b, a;
 	SDL_GetRenderDrawColor(Game::Instance()->getRenderer(), &r, &g, &b, &a);
 
-	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 128, 128, 128, 0);
+	//draw headers
+	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 211, 211, 211, 0); //light gray
 	/*if (Game::Instance()->lastButtonClicked == m_text) SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 255, 234, 0, 0);
 	SDL_Rect* rect = new SDL_Rect();
 	rect->x = m_position.m_x;

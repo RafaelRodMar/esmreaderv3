@@ -427,7 +427,31 @@ void Game::render()
 				//birthSignVisualizer.show();
 				if (showControl->tag != "Birthsign")
 				{
+					showControl->reset();
+
+					//pass headers to the showControl
+					std::vector< std::string > h = {"Name", "Full name", "Texture Filename", "Description", "Spells"};
+					showControl->setHeaders(h);
+
 					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for(auto x : vbsgn){
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.textureFileName);
+						temp.push_back(x.description);
+						std::string tempText = "";
+						for (int j = 0; j < x.spell_ability.size(); j++) {
+							tempText += x.spell_ability[j];
+							if (j != x.spell_ability.size() - 1) tempText += ", ";
+						}
+						temp.push_back(tempText);
+
+						d.push_back(temp);
+					}
+					showControl->setData(d);
+					
 					showControl->tag = "Birthsign";
 				}
 			}
