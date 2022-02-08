@@ -164,6 +164,7 @@ public:
 
 	void reset() {
 		//clear the vectors and give them size 0 swapping with a empty vector.
+		std::string tag = "";
 		std::vector<std::string>().swap(headers);
 		std::vector< std::vector<std::string> >().swap(data);
 		std::vector<int>().swap(sizes);
@@ -178,8 +179,6 @@ public:
 			totalWidth += 150;
 		}
 	}
-	void setData(std::vector< std::vector<std::string> >& d) {
-		data = d;
-	}
+	void setData(std::vector< std::vector<std::string> >& d);
 };
 

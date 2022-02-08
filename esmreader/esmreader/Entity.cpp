@@ -217,3 +217,24 @@ void ShowControl::update() {
 void ShowControl::handleEvents() {
 
 }
+
+void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
+	data = d;
+	//resize the columns to fit the biggest data
+	int col = 0;
+	for (int i = 0; i < sizes.size(); i++) {
+		int maxSize = 0;
+		int index = 0;
+		for (int j = 0; j < d.size(); j++) {
+			if (d[j][col].size() > maxSize)
+			{
+				maxSize = d[j][col].size();
+				index = j;
+			}
+		}
+		std::pair<int, int> p = AssetsManager::Instance()->getTextSize(d[index][col], "font", SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+		if (col == 1) AssetsManager::Instance()->Text(d[index][col], "font", 800, 700, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+		sizes[i] = p.first + 5;
+		col++;
+	}
+}
