@@ -152,6 +152,8 @@ public:
 	std::vector<int> sizes; //size of the columns
 	int totalWidth = 0;
 	std::vector< std::vector<std::string> > data;
+	int dataFrom = 0;
+	int dataTo = 0;
 
 	ShowControl() {
 		xinit = m_position.m_x;
@@ -171,14 +173,9 @@ public:
 		xinit = m_position.m_x = 0;
 		yinit = m_position.m_y = 150;
 		totalWidth = 0;
+		dataFrom = dataTo = 0;
 	}
-	void setHeaders(std::vector<std::string>& h) {
-		headers = h;
-		for (int i = 0; i < headers.size(); i++) {
-			sizes.push_back(150); //columns default size
-			totalWidth += 150;
-		}
-	}
+	void setHeaders(std::vector<std::string>& h);
 	void setData(std::vector< std::vector<std::string> >& d);
 };
 

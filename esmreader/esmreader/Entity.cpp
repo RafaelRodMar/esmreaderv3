@@ -218,6 +218,14 @@ void ShowControl::handleEvents() {
 
 }
 
+void ShowControl::setHeaders(std::vector<std::string>& h) {
+	headers = h;
+	for (int i = 0; i < headers.size(); i++) {
+		sizes.push_back(150); //columns default size
+		totalWidth += 150;
+	}
+}
+
 void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
 	data = d;
 	//resize the columns to fit the biggest data
@@ -237,4 +245,12 @@ void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
 		sizes[i] = p.first + 5;
 		col++;
 	}
+
+	//recalculate totalWidth
+	totalWidth = 0;
+	for (auto x : sizes) totalWidth += x;
+
+	//set how many rows to show
+	dataFrom = 0;
+	dataTo = d.size();
 }
