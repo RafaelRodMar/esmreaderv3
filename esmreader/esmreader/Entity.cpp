@@ -199,7 +199,7 @@ void ShowControl::draw()
 	for (int i = 0; i < data.size(); i++) {
 		for (int j = 0; j < data[i].size(); j++) {
 			AssetsManager::Instance()->Text(data[i][j], "font", xhead, ydata, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
-			xhead += sizes[i];
+			xhead += sizes[j];
 		}
 		xhead = m_position.m_x;
 		ydata += 20;

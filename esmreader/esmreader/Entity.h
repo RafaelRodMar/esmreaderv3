@@ -174,8 +174,8 @@ public:
 	void setHeaders(std::vector<std::string>& h) {
 		headers = h;
 		for (int i = 0; i < headers.size(); i++) {
-			sizes.push_back(100); //columns default size
-			totalWidth += 100;
+			sizes.push_back(150); //columns default size
+			totalWidth += 150;
 		}
 	}
 	void setData(std::vector< std::vector<std::string> >& d) {

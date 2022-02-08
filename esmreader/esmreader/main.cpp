@@ -254,171 +254,375 @@ void Game::render()
 			if (Game::Instance()->lastButtonClicked == "NPC")
 			{
 				AssetsManager::Instance()->Text("NPC", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "NPC")
+				{
+					showControl->reset();
+					
+					showControl->tag = "NPC";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Creature")
 			{
 				AssetsManager::Instance()->Text("Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Creature")
+				{
+					showControl->reset();
+
+					showControl->tag = "Creature";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Leveled Creature")
 			{
 				AssetsManager::Instance()->Text("Leveled Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Leveled Creature")
+				{
+					showControl->reset();
+
+					showControl->tag = "Leveled Creature";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Spellmaking")
 			{
 				AssetsManager::Instance()->Text("Spellmaking", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Spellmaking")
+				{
+					showControl->reset();
+
+					showControl->tag = "Spellmaking";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Enchanting")
 			{
 				AssetsManager::Instance()->Text("Enchanting", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Enchanting")
+				{
+					showControl->reset();
+
+					showControl->tag = "Enchanting";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Alchemy")
 			{
 				AssetsManager::Instance()->Text("Alchemy", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Alchemy")
+				{
+					showControl->reset();
+
+					showControl->tag = "Alchemy";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Leveled Item")
 			{
 				AssetsManager::Instance()->Text("Leveled Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Leveled Item")
+				{
+					showControl->reset();
+
+					showControl->tag = "Leveled Item";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Activator")
 			{
 				AssetsManager::Instance()->Text("Activator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Activator")
+				{
+					showControl->reset();
+
+					showControl->tag = "Activator";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Apparatus")
 			{
 				AssetsManager::Instance()->Text("Apparatus", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Apparatus")
+				{
+					showControl->reset();
+
+					showControl->tag = "Apparatus";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Armor")
 			{
 				AssetsManager::Instance()->Text("Armor", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Armor")
+				{
+					showControl->reset();
+
+					showControl->tag = "Armor";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Body Part")
 			{
 				AssetsManager::Instance()->Text("Body Part", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Body Part")
+				{
+					showControl->reset();
+
+					showControl->tag = "Body Part";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Book")
 			{
 				AssetsManager::Instance()->Text("Book", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Book")
+				{
+					showControl->reset();
+
+					showControl->tag = "Book";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Clothing")
 			{
 				AssetsManager::Instance()->Text("Clothing", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Clothing")
+				{
+					showControl->reset();
+
+					showControl->tag = "Clothing";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Container")
 			{
 				AssetsManager::Instance()->Text("Container", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Container")
+				{
+					showControl->reset();
+
+					showControl->tag = "Container";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Door")
 			{
 				AssetsManager::Instance()->Text("Door", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Door")
+				{
+					showControl->reset();
+
+					showControl->tag = "Door";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Ingredient")
 			{
 				AssetsManager::Instance()->Text("Ingredient", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Ingredient")
+				{
+					showControl->reset();
+
+					showControl->tag = "Ingredient";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Light")
 			{
 				AssetsManager::Instance()->Text("Light", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Light")
+				{
+					showControl->reset();
+
+					showControl->tag = "Light";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Lockpick")
 			{
 				AssetsManager::Instance()->Text("Lockpick", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Lockpick")
+				{
+					showControl->reset();
+
+					showControl->tag = "Lockpick";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Misc Item")
 			{
 				AssetsManager::Instance()->Text("Misc Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Misc Item")
+				{
+					showControl->reset();
+
+					showControl->tag = "Misc Item";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Probe")
 			{
 				AssetsManager::Instance()->Text("Probe", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Probe")
+				{
+					showControl->reset();
+
+					showControl->tag = "Probe";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Repair Item")
 			{
 				AssetsManager::Instance()->Text("Repair Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Repair Item")
+				{
+					showControl->reset();
+
+					showControl->tag = "Repair Item";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Static")
 			{
 				AssetsManager::Instance()->Text("Static", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Static")
+				{
+					showControl->reset();
+
+					showControl->tag = "Static";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Weapon")
 			{
 				AssetsManager::Instance()->Text("Weapon", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Weapon")
+				{
+					showControl->reset();
+
+					showControl->tag = "Weapon";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Cell")
 			{
 				AssetsManager::Instance()->Text("Cell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Cell")
+				{
+					showControl->reset();
+
+					showControl->tag = "Cell";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Game Settings")
 			{
 				AssetsManager::Instance()->Text("Game Settings", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Game Settings")
+				{
+					showControl->reset();
+
+					showControl->tag = "Game Settings";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Global")
 			{
 				AssetsManager::Instance()->Text("Global", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Global")
+				{
+					showControl->reset();
+
+					showControl->tag = "Global";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Class")
 			{
 				AssetsManager::Instance()->Text("Class", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Class")
+				{
+					showControl->reset();
+
+					showControl->tag = "Class";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Faction")
 			{
 				AssetsManager::Instance()->Text("Faction", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Faction")
+				{
+					showControl->reset();
+
+					showControl->tag = "Faction";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Race")
 			{
 				AssetsManager::Instance()->Text("Race", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Race")
+				{
+					showControl->reset();
+
+					showControl->tag = "Race";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Sound")
 			{
 				AssetsManager::Instance()->Text("Sound", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Sound")
+				{
+					showControl->reset();
+
+					showControl->tag = "Sound";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Skill")
 			{
 				AssetsManager::Instance()->Text("Skill", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Skill")
+				{
+					showControl->reset();
+
+					showControl->tag = "Skill";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Magic Effects")
 			{
 				AssetsManager::Instance()->Text("Magic Effects", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Magic Effects")
+				{
+					showControl->reset();
+
+					showControl->tag = "Magic Effects";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Script")
 			{
 				AssetsManager::Instance()->Text("Script", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Script")
+				{
+					showControl->reset();
+
+					showControl->tag = "Script";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Region")
 			{
 				AssetsManager::Instance()->Text("Region", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Region")
+				{
+					showControl->reset();
+
+					showControl->tag = "Region";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Birthsign")
@@ -459,31 +663,67 @@ void Game::render()
 			if (Game::Instance()->lastButtonClicked == "Landscape Texture")
 			{
 				AssetsManager::Instance()->Text("Landscape Texture", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Landscape Texture")
+				{
+					showControl->reset();
+
+					showControl->tag = "Landscape Texture";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Landscape")
 			{
 				AssetsManager::Instance()->Text("Landscape", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Landscape")
+				{
+					showControl->reset();
+
+					showControl->tag = "Landscape";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Path Grid")
 			{
 				AssetsManager::Instance()->Text("Path Grid", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Path Grid")
+				{
+					showControl->reset();
+
+					showControl->tag = "Path Grid";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Sound Generator")
 			{
 				AssetsManager::Instance()->Text("Sound Generator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Sound Generator")
+				{
+					showControl->reset();
+
+					showControl->tag = "Sound Generator";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Spell")
 			{
 				AssetsManager::Instance()->Text("Spell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Spell")
+				{
+					showControl->reset();
+
+					showControl->tag = "Spell";
+				}
 			}
 
 			if (Game::Instance()->lastButtonClicked == "Dialog")
 			{
 				AssetsManager::Instance()->Text("Dialog", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				if (showControl->tag != "Dialog")
+				{
+					showControl->reset();
+
+					showControl->tag = "Dialog";
+				}
 			}
 
 			mousepos.m_x = InputHandler::Instance()->getMousePosition()->m_x;
