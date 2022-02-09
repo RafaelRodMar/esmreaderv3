@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "InputHandler.h"
 #include "game.h"
+#include <algorithm>
 
 float DEGTORAD = 0.017453f; //pi/180
 
@@ -200,9 +201,11 @@ void ShowControl::draw()
 		for (int j = 0; j < data[i].size(); j++) {
 			AssetsManager::Instance()->Text(data[i][j], "font", xhead, ydata, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
 			xhead += sizes[j];
+			if (xhead > 1024) break;
 		}
 		xhead = m_position.m_x;
 		ydata += 20;
+		if (ydata > 768) break;
 	}
 
 	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
@@ -221,8 +224,8 @@ void ShowControl::handleEvents() {
 void ShowControl::setHeaders(std::vector<std::string>& h) {
 	headers = h;
 	for (int i = 0; i < headers.size(); i++) {
-		sizes.push_back(150); //columns default size
-		totalWidth += 150;
+		sizes.push_back(0); //columns default size
+		totalWidth += 0;
 	}
 }
 
@@ -231,8 +234,8 @@ void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
 	//resize the columns to fit the biggest data
 	int col = 0;
 	for (int i = 0; i < sizes.size(); i++) {
-		int maxSize = 0;
-		int index = 0;
+		int maxSize = headers[i].size();  //headers counts too.
+		int index = -1;
 		for (int j = 0; j < d.size(); j++) {
 			if (d[j][col].size() > maxSize)
 			{
@@ -240,9 +243,16 @@ void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
 				index = j;
 			}
 		}
-		std::pair<int, int> p = AssetsManager::Instance()->getTextSize(d[index][col], "font", SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
-		if (col == 1) AssetsManager::Instance()->Text(d[index][col], "font", 800, 700, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
-		sizes[i] = p.first + 5;
+		if (index == -1)
+		{
+			std::pair<int, int> ph = AssetsManager::Instance()->getTextSize(headers[i], "font", SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+			sizes[i] = ph.first + 5;
+		}
+		else
+		{
+			std::pair<int, int> p = AssetsManager::Instance()->getTextSize(d[index][col], "font", SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+			sizes[i] = p.first + 5;
+		}
 		col++;
 	}
 
@@ -252,5 +262,5 @@ void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
 
 	//set how many rows to show
 	dataFrom = 0;
-	dataTo = d.size();
+	dataTo = std::min(29, (int)d.size());
 }

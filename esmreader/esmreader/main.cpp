@@ -352,10 +352,41 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Armor")
 			{
-				AssetsManager::Instance()->Text("Armor", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Armor", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Armor")
 				{
 					showControl->reset();
+
+					//pass headers to the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Type", "Weight", "Value", "Health", "Enchantment Points", "Armour", "Icon Filename", "Body Part-Male Armor name-Female Armor name", "Enchantment", "Script" };
+					showControl->setHeaders(h);
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : varmo) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(to_string(x.ad.type));
+						temp.push_back(to_string(x.ad.weight));
+						temp.push_back(to_string(x.ad.value));
+						temp.push_back(to_string(x.ad.health));
+						temp.push_back(to_string(x.ad.enchantPts));
+						temp.push_back(to_string(x.ad.armour));
+						temp.push_back(x.icon);
+						std::string tempText = "";
+						for (int j = 0; j < x.bp.size(); j++) {
+							tempText += to_string(x.bp[j].bodyPartIndex) + "-" + x.bp[j].maleArmorName + "-" + x.bp[j].femaleArmorName;
+							if (j != x.bp.size() - 1) tempText += ", ";
+						}
+						temp.push_back(tempText);
+						temp.push_back(x.enchantment);
+						temp.push_back(x.script);
+
+						d.push_back(temp);
+					}
+					showControl->setData(d);
 
 					showControl->tag = "Armor";
 				}

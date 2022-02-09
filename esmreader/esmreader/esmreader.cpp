@@ -1556,7 +1556,7 @@ void readESM(const std::string &filename) {
 			//if (name == "LIGH") parseLIGH(buffer);
 			//if (name == "ENCH") parseENCH(buffer);
 			//if (name == "NPC_") parseNPC_(buffer);
-			//if (name == "ARMO") parseARMO(buffer);
+			if (name == "ARMO") parseARMO(buffer);
 			//if (name == "CLOT") parseCLOT(buffer);
 			//if (name == "REPA") parseREPA(buffer);
 			//if (name == "ACTI") parseACTI(buffer);

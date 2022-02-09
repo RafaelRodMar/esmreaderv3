@@ -145,7 +145,7 @@ SDL_Texture* AssetsManager::renderText(const std::string &message, const std::st
 	//returns, then load that surface into a texture
 	SDL_Surface *surf = TTF_RenderText_Blended(m_fonts[font], message.c_str(), color);
 	if (surf == nullptr) {
-		cout << "error creating text" << endl;
+		cout << "error creating text " << SDL_GetError() << endl;
 		return nullptr;
 	}
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
@@ -158,6 +158,7 @@ SDL_Texture* AssetsManager::renderText(const std::string &message, const std::st
 }
 
 std::pair<int, int> AssetsManager::getTextSize(const std::string &message, const std::string &font, SDL_Color color, SDL_Renderer *renderer) {
+	if (message == "") return std::make_pair(0, 0);
 	SDL_Texture* sf = renderText(message.c_str(), font, color, renderer);
 	int texturewidth, textureheight;
 	SDL_QueryTexture(sf, NULL, NULL, &texturewidth, &textureheight);
@@ -173,7 +174,11 @@ void AssetsManager::Text(const std::string &message, const std::string &font, in
 	sr->x = 0; sr->y = 0;
 	ds->x = x; ds->y = y;
 
-	SDL_Texture* sf = renderText(message.c_str(), font, color, renderer);
+	SDL_Texture* sf;
+	if(message=="")
+		sf = renderText(" ", font, color, renderer);
+	else
+		sf = renderText(message.c_str(), font, color, renderer);
 
 	int texturewidth, textureheight;
 	SDL_QueryTexture(sf, NULL, NULL, &texturewidth, &textureheight);
