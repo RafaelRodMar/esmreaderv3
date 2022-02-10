@@ -221,15 +221,18 @@ void ShowControl::handleEvents() {
 
 }
 
-void ShowControl::setHeaders(std::vector<std::string>& h) {
+void ShowControl::setData(std::vector<std::string>& h, std::vector< std::vector<std::string> >& d) {
+	//reset values
+	reset();
+
+	//set headers
 	headers = h;
 	for (int i = 0; i < headers.size(); i++) {
 		sizes.push_back(0); //columns default size
 		totalWidth += 0;
 	}
-}
 
-void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
+	//set data
 	data = d;
 	//resize the columns to fit the biggest data
 	int col = 0;

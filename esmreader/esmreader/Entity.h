@@ -175,7 +175,7 @@ public:
 		totalWidth = 0;
 		dataFrom = dataTo = 0;
 	}
-	void setHeaders(std::vector<std::string>& h);
-	void setData(std::vector< std::vector<std::string> >& d);
+	
+	void setData(std::vector<std::string>& h, std::vector< std::vector<std::string> >& d);
 };
 

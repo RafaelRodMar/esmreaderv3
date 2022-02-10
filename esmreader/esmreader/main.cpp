@@ -256,7 +256,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("NPC", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "NPC")
 				{
-					showControl->reset();
+					 
 					
 					showControl->tag = "NPC";
 				}
@@ -267,7 +267,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Creature")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Creature";
 				}
@@ -278,7 +278,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Leveled Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Leveled Creature")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Leveled Creature";
 				}
@@ -289,7 +289,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Spellmaking", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Spellmaking")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Spellmaking";
 				}
@@ -300,7 +300,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Enchanting", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Enchanting")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Enchanting";
 				}
@@ -311,7 +311,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Alchemy", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Alchemy")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Alchemy";
 				}
@@ -322,7 +322,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Leveled Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Leveled Item")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Leveled Item";
 				}
@@ -333,7 +333,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Activator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Activator")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Activator";
 				}
@@ -344,7 +344,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Apparatus", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Apparatus")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Apparatus";
 				}
@@ -355,11 +355,8 @@ void Game::render()
 				//AssetsManager::Instance()->Text("Armor", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Armor")
 				{
-					showControl->reset();
-
-					//pass headers to the showControl
+					//ready headers for the showControl
 					std::vector< std::string > h = { "Name", "Full name", "Model", "Type", "Weight", "Value", "Health", "Enchantment Points", "Armour", "Icon Filename", "Body Part-Male Armor name-Female Armor name", "Enchantment", "Script" };
-					showControl->setHeaders(h);
 
 					//pass data to the showControl
 					std::vector< std::vector< std::string > > d;
@@ -386,7 +383,7 @@ void Game::render()
 
 						d.push_back(temp);
 					}
-					showControl->setData(d);
+					showControl->setData(h,d);
 
 					showControl->tag = "Armor";
 				}
@@ -397,7 +394,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Body Part", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Body Part")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Body Part";
 				}
@@ -408,7 +405,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Book", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Book")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Book";
 				}
@@ -419,7 +416,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Clothing", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Clothing")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Clothing";
 				}
@@ -430,7 +427,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Container", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Container")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Container";
 				}
@@ -441,7 +438,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Door", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Door")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Door";
 				}
@@ -452,7 +449,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Ingredient", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Ingredient")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Ingredient";
 				}
@@ -463,7 +460,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Light", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Light")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Light";
 				}
@@ -474,7 +471,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Lockpick", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Lockpick")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Lockpick";
 				}
@@ -485,7 +482,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Misc Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Misc Item")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Misc Item";
 				}
@@ -496,7 +493,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Probe", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Probe")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Probe";
 				}
@@ -507,7 +504,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Repair Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Repair Item")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Repair Item";
 				}
@@ -518,7 +515,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Static", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Static")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Static";
 				}
@@ -529,7 +526,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Weapon", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Weapon")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Weapon";
 				}
@@ -540,7 +537,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Cell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Cell")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Cell";
 				}
@@ -551,7 +548,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Game Settings", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Game Settings")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Game Settings";
 				}
@@ -562,7 +559,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Global", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Global")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Global";
 				}
@@ -573,7 +570,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Class", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Class")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Class";
 				}
@@ -584,7 +581,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Faction", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Faction")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Faction";
 				}
@@ -595,7 +592,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Race", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Race")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Race";
 				}
@@ -606,7 +603,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Sound", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Sound")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Sound";
 				}
@@ -617,7 +614,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Skill", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Skill")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Skill";
 				}
@@ -628,7 +625,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Magic Effects", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Magic Effects")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Magic Effects";
 				}
@@ -639,7 +636,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Script", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Script")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Script";
 				}
@@ -650,7 +647,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Region", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Region")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Region";
 				}
@@ -662,11 +659,8 @@ void Game::render()
 				//birthSignVisualizer.show();
 				if (showControl->tag != "Birthsign")
 				{
-					showControl->reset();
-
 					//pass headers to the showControl
 					std::vector< std::string > h = {"Name", "Full name", "Texture Filename", "Description", "Spells"};
-					showControl->setHeaders(h);
 
 					//pass data to the showControl
 					std::vector< std::vector< std::string > > d;
@@ -685,7 +679,7 @@ void Game::render()
 
 						d.push_back(temp);
 					}
-					showControl->setData(d);
+					showControl->setData(h,d);
 					
 					showControl->tag = "Birthsign";
 				}
@@ -696,7 +690,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Landscape Texture", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Landscape Texture")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Landscape Texture";
 				}
@@ -707,7 +701,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Landscape", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Landscape")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Landscape";
 				}
@@ -718,7 +712,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Path Grid", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Path Grid")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Path Grid";
 				}
@@ -729,7 +723,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Sound Generator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Sound Generator")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Sound Generator";
 				}
@@ -740,7 +734,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Spell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Spell")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Spell";
 				}
@@ -751,7 +745,7 @@ void Game::render()
 				AssetsManager::Instance()->Text("Dialog", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Dialog")
 				{
-					showControl->reset();
+					 
 
 					showControl->tag = "Dialog";
 				}
