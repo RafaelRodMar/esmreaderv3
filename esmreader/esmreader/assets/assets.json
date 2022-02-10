@@ -14,7 +14,11 @@
         "chicken": "chicken.png",
         "chickenhead": "chickenhead.png",
         "highway": "highway.png",
-	"button": "button.png"
+	"button": "button.png",
+	"arrow-up": "arrow-up.png",
+	"arrow-down": "arrow-down.png",
+	"arrow-left": "arrow-left.png",
+	"arrow-right": "arrow-right.png"
     },
     "mus": {
         "music": "music.ogg"

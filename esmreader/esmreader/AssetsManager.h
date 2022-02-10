@@ -71,6 +71,9 @@ public:
 	void Text(const std::string &message, const std::string &font, int x, int y, SDL_Color color, SDL_Renderer *renderer);
 	//returns the size of the texturized text
 	std::pair<int, int> getTextSize(const std::string &message, const std::string &font, SDL_Color color, SDL_Renderer *renderer);
+	TTF_Font* getFont(const std::string &font) {
+		return m_fonts[font];
+	}
 
 	void clearFonts() {
 		auto iter = m_fonts.begin();

@@ -160,10 +160,10 @@ void Button::draw()
 
 void Button::autoSize()
 {
-	std::pair<int, int> p;
-	p = AssetsManager::Instance()->getTextSize(m_text, m_font, SDL_Color({ 190,34,12,0 }), Game::Instance()->getRenderer());
-	m_width = p.first + 10;
-	m_height = p.second + 10;
+	int width = 0, height = 0;
+	TTF_SizeText(AssetsManager::Instance()->getFont("font"), m_text.c_str(), &width, &height);
+	m_width = width + 10;
+	m_height = height + 10;
 }
 
 void Button::buttonSettings(const string &Texture, Vector2D pos, Vector2D vel, int Width, int Height, int nFrames, 
@@ -243,16 +243,15 @@ void ShowControl::setData(std::vector< std::vector<std::string> >& d) {
 				index = j;
 			}
 		}
+
+		int width = 0, height = 0;
+		//check if the biggest is the header
 		if (index == -1)
-		{
-			std::pair<int, int> ph = AssetsManager::Instance()->getTextSize(headers[i], "font", SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
-			sizes[i] = ph.first + 5;
-		}
+			TTF_SizeText(AssetsManager::Instance()->getFont("font"), headers[i].c_str(), &width, &height);
 		else
-		{
-			std::pair<int, int> p = AssetsManager::Instance()->getTextSize(d[index][col], "font", SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
-			sizes[i] = p.first + 5;
-		}
+			TTF_SizeText(AssetsManager::Instance()->getFont("font"), d[index][col].c_str(), &width, &height);
+
+		sizes[i] = width + 10;
 		col++;
 	}
 
