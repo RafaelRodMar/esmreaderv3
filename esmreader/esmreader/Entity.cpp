@@ -176,15 +176,12 @@ void Button::buttonSettings(const string &Texture, Vector2D pos, Vector2D vel, i
 
 void ShowControl::draw()
 {
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(Game::Instance()->getRenderer(), &r, &g, &b, &a);
-
 	//draw headers
 	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 211, 211, 211, 0); //light gray
 	SDL_Rect* rect = new SDL_Rect();
-	rect->x = m_position.m_x;
-	rect->y = m_position.m_y;
-	rect->w = totalWidth;
+	rect->x = 0;
+	rect->y = 150;
+	rect->w = 1024;
 	rect->h = 22;
 	SDL_RenderFillRect(Game::Instance()->getRenderer(), rect);
 	delete(rect);
@@ -197,7 +194,7 @@ void ShowControl::draw()
 	int ydata = m_position.m_y + 20;
 	//draw data
 	xhead = m_position.m_x;
-	for (int i = 0; i < data.size(); i++) {
+	for (int i = dataFrom; i < data.size(); i++) {
 		for (int j = 0; j < data[i].size(); j++) {
 			AssetsManager::Instance()->Text(data[i][j], "font", xhead, ydata, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
 			xhead += sizes[j];
@@ -208,9 +205,34 @@ void ShowControl::draw()
 		if (ydata > 768) break;
 	}
 
-	SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
-	SDL_RenderDrawLine(Game::Instance()->getRenderer(), m_position.m_x, m_position.m_y - 1, m_position.m_x + 1024, m_position.m_y - 1);
-	//AssetsManager::Instance()->Text(m_text, "font", m_position.m_x + 5, m_position.m_y + 5, cl, Game::Instance()->getRenderer());
+	SDL_RenderDrawLine(Game::Instance()->getRenderer(), 0, 150 - 1, 1024, 150 - 1);
+
+	//draw horizontal scroll bar if necessary
+	if (showHScroll)
+	{
+		rect = new SDL_Rect();
+		rect->x = 0;
+		rect->y = 768 - 20;
+		rect->w = 1024;
+		rect->h = 20;
+		SDL_RenderFillRect(Game::Instance()->getRenderer(), rect);
+		delete(rect);
+		AssetsManager::Instance()->draw("arrow-left", 0, 768-20, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+		AssetsManager::Instance()->draw("arrow-right", 1024-40, 768-20, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+	}
+	//draw vertical scroll bar if necessary
+	if (showVScroll)
+	{
+		rect = new SDL_Rect();
+		rect->x = 1004;
+		rect->y = 150;
+		rect->w = 20;
+		rect->h = 768-150;
+		SDL_RenderFillRect(Game::Instance()->getRenderer(), rect);
+		delete(rect);
+		AssetsManager::Instance()->draw("arrow-up", 1004, 150, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+		AssetsManager::Instance()->draw("arrow-down", 1004, 768-40, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+	}
 }
 
 void ShowControl::update() {
@@ -219,6 +241,42 @@ void ShowControl::update() {
 
 void ShowControl::handleEvents() {
 
+	if (showVScroll)
+	{
+		//keyboard
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) if(dataFrom < data.size() - 25) dataFrom++;
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) if(dataFrom > 0) dataFrom--;
+		//mouse
+		if (Game::Instance()->mouseClicked)
+		{
+			Vector2D* v = InputHandler::Instance()->getMousePosition();
+			//arrow-up
+			if (v->getX() > 1004 && v->getX() < 1004 + 20 && v->getY() > 150 && v->getY() < 150 + 20) if (dataFrom > 0) dataFrom--;
+			//arrow-down
+			if (v->getX() > 1004 && v->getX() < 1004 + 20 && v->getY() > 768-40 && v->getY() < 768 - 40 + 20) if (dataFrom < data.size() - 25) dataFrom++;
+		}
+	}
+
+	if (showHScroll)
+	{
+		//keyboard
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))	if (m_position.m_x + totalWidth > 0) m_position.m_x -= 20;
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) if(m_position.m_x < 1024) m_position.m_x += 20;
+		//mouse
+		//AssetsManager::Instance()->draw("arrow-left", 0, 768 - 20, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+		//AssetsManager::Instance()->draw("arrow-right", 1024 - 40, 768 - 20, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+		if (Game::Instance()->mouseClicked)
+		{
+			Vector2D* v = InputHandler::Instance()->getMousePosition();
+			//arrow-left
+			if (v->getX() > 0 && v->getX() < 20 && v->getY() > 768 - 20 && v->getY() < 768) if (m_position.m_x + totalWidth > 0) m_position.m_x -= 20;
+			//arrow-right
+			if (v->getX() > 1004 - 40 && v->getX() < 1024 - 40 + 20 && v->getY() > 768 - 20 && v->getY() < 768) if (m_position.m_x < 1024) m_position.m_x += 20;
+		}
+	}
+
+	//InputHandler::Instance()->setMouseButtonStatesToFalse();
+	//Game::Instance()->mouseClicked = false;
 }
 
 void ShowControl::setData(std::vector<std::string>& h, std::vector< std::vector<std::string> >& d) {
@@ -254,15 +312,17 @@ void ShowControl::setData(std::vector<std::string>& h, std::vector< std::vector<
 		else
 			TTF_SizeText(AssetsManager::Instance()->getFont("font"), d[index][col].c_str(), &width, &height);
 
-		sizes[i] = width + 10;
+		sizes[i] = width + 25;
 		col++;
 	}
 
 	//recalculate totalWidth
 	totalWidth = 0;
 	for (auto x : sizes) totalWidth += x;
+	if (totalWidth > 1024) showHScroll = true;
 
 	//set how many rows to show
 	dataFrom = 0;
 	dataTo = std::min(29, (int)d.size());
+	if ((int)d.size() > 29) showVScroll = true;
 }

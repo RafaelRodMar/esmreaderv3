@@ -154,6 +154,8 @@ public:
 	std::vector< std::vector<std::string> > data;
 	int dataFrom = 0;
 	int dataTo = 0;
+	bool showHScroll = false;
+	bool showVScroll = false;
 
 	ShowControl() {
 		xinit = m_position.m_x;
@@ -174,6 +176,7 @@ public:
 		yinit = m_position.m_y = 150;
 		totalWidth = 0;
 		dataFrom = dataTo = 0;
+		showHScroll = showVScroll = false;
 	}
 	
 	void setData(std::vector<std::string>& h, std::vector< std::vector<std::string> >& d);
