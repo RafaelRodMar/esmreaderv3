@@ -1544,7 +1544,7 @@ void readESM(const std::string &filename) {
 			//if (name == "SCPT") parseSCPT(buffer);
 			//if (name == "REGN") parseREGN(buffer);
 			if (name == "BSGN") parseBSGN(buffer);
-			//if (name == "LTEX") parseLTEX(buffer);
+			if (name == "LTEX") parseLTEX(buffer);
 			//if (name == "STAT") parseSTAT(buffer);
 			//if (name == "DOOR") parseDOOR(buffer);
 			//if (name == "MISC") parseMISC(buffer);

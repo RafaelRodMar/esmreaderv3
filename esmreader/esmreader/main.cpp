@@ -256,8 +256,8 @@ void Game::render()
 				AssetsManager::Instance()->Text("NPC", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "NPC")
 				{
-					 
-					
+
+		
 					showControl->tag = "NPC";
 				}
 			}
@@ -701,10 +701,23 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Landscape Texture")
 			{
-				AssetsManager::Instance()->Text("Landscape Texture", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Landscape Texture", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Landscape Texture")
 				{
-					 
+					//pass headers to the showControl
+					std::vector< std::string > h = { "Name", "Index", "Texture Filename" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vltex) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(to_string(x.index));
+						temp.push_back(x.filename);
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->textureColumn = 2;
 
 					showControl->tag = "Landscape Texture";
 				}
