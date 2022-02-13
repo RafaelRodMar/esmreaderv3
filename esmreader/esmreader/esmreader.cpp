@@ -1538,7 +1538,7 @@ void readESM(const std::string &filename) {
 			//if (name == "CLAS") parseCLAS(buffer);
 			//if (name == "FACT") parseFACT(buffer);
 			//if (name == "RACE") parseRACE(buffer);
-			//if (name == "SOUN") parseSOUN(buffer);
+			if (name == "SOUN") parseSOUN(buffer);
 			//if (name == "SKIL") parseSKIL(buffer);
 			//if (name == "MGEF") parseMGEF(buffer);
 			//if (name == "SCPT") parseSCPT(buffer);

@@ -55,11 +55,17 @@ public:
 
 	void clearFromTextureMap(string id); //delete SDL_Texture from the map
 
+	bool textureMapContains(string id);
+
 	//SOUND / MUSIC
 
 	bool loadSound(std::string fileName, std::string id, sound_type type);
 	void playSound(std::string id, int loop);
 	void playMusic(std::string id, int loop);
+	void clearSound(std::string id);
+	void clearMusic(std::string id);
+	bool soundMapContains(std::string id);
+	bool musicMapContains(std::string id);
 
 	//FONTS
 	bool loadFont(const string &fileName, string id, int size);

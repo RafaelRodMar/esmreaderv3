@@ -80,7 +80,13 @@ void AssetsManager::drawTile(std::string id, int margin, int spacing, int x, int
 
 void AssetsManager::clearFromTextureMap(string id)
 {
+	SDL_DestroyTexture(m_textureMap[id]);
 	m_textureMap.erase(id);
+}
+
+bool AssetsManager::textureMapContains(string id) {
+	if (m_textureMap.count(id) == 1) return true;
+	return false;
 }
 
 
@@ -122,6 +128,28 @@ void AssetsManager::playMusic(std::string id, int loop)
 void AssetsManager::playSound(std::string id, int loop)
 {
 	Mix_PlayChannel(-1, m_sfxs[id], loop);
+}
+
+void AssetsManager::clearSound(std::string id)
+{
+	Mix_FreeChunk(m_sfxs[id]);
+	m_sfxs.erase(id);
+}
+
+void AssetsManager::clearMusic(std::string id)
+{
+	Mix_FreeMusic(m_music[id]);
+	m_music.erase(id);
+}
+
+bool AssetsManager::soundMapContains(std::string id) {
+	if (m_sfxs.count(id) == 1) return true;
+	return false;
+}
+
+bool AssetsManager::musicMapContains(std::string id) {
+	if (m_music.count(id) == 1) return true;
+	return false;
 }
 
 //FONTS

@@ -156,6 +156,16 @@ public:
 	int dataTo = 0;
 	bool showHScroll = false;
 	bool showVScroll = false;
+	bool mouseOn = false;
+	Vector2D mouseOver;
+	int selected = -1;
+	int selectedIndex = -1;
+	int textureColumn = -1;
+	std::string textureId = "";
+	int iconColumn = -1;
+	std::string iconId = "";
+	int soundColumn = -1;
+	std::string soundId = "";
 
 	ShowControl() {
 		xinit = m_position.m_x;
@@ -177,6 +187,18 @@ public:
 		totalWidth = 0;
 		dataFrom = dataTo = 0;
 		showHScroll = showVScroll = false;
+		mouseOn = false;
+		textureColumn = -1;
+		AssetsManager::Instance()->clearFromTextureMap(textureId);
+		textureId = "";
+		iconColumn = -1;
+		AssetsManager::Instance()->clearFromTextureMap(iconId);
+		iconId = "";
+		soundColumn = -1;
+		AssetsManager::Instance()->clearSound(soundId);
+		soundId = "";
+		selected = -1;
+		selectedIndex = -1;
 	}
 	
 	void setData(std::vector<std::string>& h, std::vector< std::vector<std::string> >& d);

@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "InputHandler.h"
 #include "game.h"
+#include "Vector2D.h"
 #include <algorithm>
 
 float DEGTORAD = 0.017453f; //pi/180
@@ -196,7 +197,20 @@ void ShowControl::draw()
 	xhead = m_position.m_x;
 	for (int i = dataFrom; i < data.size(); i++) {
 		for (int j = 0; j < data[i].size(); j++) {
-			AssetsManager::Instance()->Text(data[i][j], "font", xhead, ydata, SDL_Color({ 0,0,0,0 }), Game::Instance()->getRenderer());
+			SDL_Color cl = SDL_Color({ 0,0,0,0 });
+			if (mouseOn)
+			{
+				if (mouseOver.m_y >= ydata && mouseOver.m_y < ydata + 20) cl = SDL_Color({ 0,0,255,0 });
+			}
+			if (selected != -1)
+			{
+				if (selected >= ydata && selected < ydata + 20)
+				{
+					cl = SDL_Color({ 255,0,0,0 });
+					selectedIndex = i;
+				}
+			}
+			AssetsManager::Instance()->Text(data[i][j], "font", xhead, ydata, cl, Game::Instance()->getRenderer());
 			xhead += sizes[j];
 			if (xhead > 1024) break;
 		}
@@ -204,6 +218,7 @@ void ShowControl::draw()
 		ydata += 20;
 		if (ydata > 768) break;
 	}
+	mouseOn = false;
 
 	SDL_RenderDrawLine(Game::Instance()->getRenderer(), 0, 150 - 1, 1024, 150 - 1);
 
@@ -233,6 +248,49 @@ void ShowControl::draw()
 		AssetsManager::Instance()->draw("arrow-up", 1004, 150, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
 		AssetsManager::Instance()->draw("arrow-down", 1004, 768-40, 20, 20, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
 	}
+
+	//draw icon or texture if necessary
+	if (selected != -1)
+	{
+		if (textureColumn != -1)
+		{
+			if (!AssetsManager::Instance()->textureMapContains(data[selectedIndex][0]))
+			{
+				AssetsManager::Instance()->clearFromTextureMap(textureId); //remove the later
+				textureId = data[selectedIndex][0];
+				std::string path = "C:/JuegosEstudio/Morrowind/Data Files/Textures/";
+				std::string fullPath = path + data[selectedIndex][textureColumn];
+				AssetsManager::Instance()->loadTexture(fullPath, textureId, Game::Instance()->getRenderer());
+			}
+			AssetsManager::Instance()->draw(textureId, 560, 0, 256, 150, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+		}
+
+		if (iconColumn != -1)
+		{
+			if (!AssetsManager::Instance()->textureMapContains(data[selectedIndex][0]))
+			{
+				AssetsManager::Instance()->clearFromTextureMap(iconId); //remove the later
+				iconId = data[selectedIndex][0];
+				std::string path = "C:/JuegosEstudio/Morrowind/Data Files/Icons/";
+				std::string fullPath = path + data[selectedIndex][iconColumn];
+				AssetsManager::Instance()->loadTexture(fullPath, iconId, Game::Instance()->getRenderer());
+			}
+			AssetsManager::Instance()->draw(iconId, 560, 0, 64, 64, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+		}
+
+		if (soundColumn != -1)
+		{
+			if (!AssetsManager::Instance()->soundMapContains(data[selectedIndex][0]))
+			{
+				AssetsManager::Instance()->clearSound(soundId); //remove the later
+				soundId = data[selectedIndex][0];
+				std::string path = "C:/JuegosEstudio/Morrowind/Data Files/Sound/";
+				std::string fullPath = path + data[selectedIndex][soundColumn];
+				AssetsManager::Instance()->loadSound(fullPath, soundId, SOUND_SFX);
+				AssetsManager::Instance()->playSound(soundId, 0);
+			}
+		}
+	}
 }
 
 void ShowControl::update() {
@@ -244,17 +302,63 @@ void ShowControl::handleEvents() {
 	if (showVScroll)
 	{
 		//keyboard
-		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) if(dataFrom < data.size() - 25) dataFrom++;
-		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) if(dataFrom > 0) dataFrom--;
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN))
+		{
+			if (dataFrom < data.size() - 25)
+			{
+				dataFrom++;
+				if (selected != -1) selected -= 20;
+			}
+		}
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
+		{
+			if (dataFrom > 0)
+			{
+				dataFrom--;
+				if (selected != -1) selected += 20;
+			}
+		}
 		//mouse
 		if (Game::Instance()->mouseClicked)
 		{
 			Vector2D* v = InputHandler::Instance()->getMousePosition();
 			//arrow-up
-			if (v->getX() > 1004 && v->getX() < 1004 + 20 && v->getY() > 150 && v->getY() < 150 + 20) if (dataFrom > 0) dataFrom--;
+			if (v->getX() > 1004 && v->getX() < 1004 + 20 && v->getY() > 150 && v->getY() < 150 + 20)
+			{
+				if (dataFrom > 0)
+				{
+					dataFrom--;
+					if (selected != -1) selected += 20;
+				}
+			}
 			//arrow-down
-			if (v->getX() > 1004 && v->getX() < 1004 + 20 && v->getY() > 768-40 && v->getY() < 768 - 40 + 20) if (dataFrom < data.size() - 25) dataFrom++;
+			if (v->getX() > 1004 && v->getX() < 1004 + 20 && v->getY() > 768 - 40 && v->getY() < 768 - 40 + 20)
+			{
+				if (dataFrom < data.size() - 25)
+				{
+					dataFrom++;
+					if (selected != -1) selected -= 20;
+				}
+			}
 		}
+		//mouse wheel
+		if (InputHandler::Instance()->isMouseWheelUp())
+		{
+			if (dataFrom > 0)
+			{
+				dataFrom--;
+				if (selected != -1) selected += 20;
+			}
+		}
+		if (InputHandler::Instance()->isMouseWheelDown())
+		{
+			if (dataFrom < data.size() - 25)
+			{
+				dataFrom++;
+				if (selected != -1) selected -= 20;
+			}
+		}
+		InputHandler::Instance()->setMouseWheelToFalse();
 	}
 
 	if (showHScroll)
@@ -272,6 +376,19 @@ void ShowControl::handleEvents() {
 			if (v->getX() > 0 && v->getX() < 20 && v->getY() > 768 - 20 && v->getY() < 768) if (m_position.m_x + totalWidth > 0) m_position.m_x -= 20;
 			//arrow-right
 			if (v->getX() > 1004 - 40 && v->getX() < 1024 - 40 + 20 && v->getY() > 768 - 20 && v->getY() < 768) if (m_position.m_x < 1024) m_position.m_x += 20;
+		}
+	}
+
+	Vector2D* mpos = InputHandler::Instance()->getMousePosition();
+	if (mpos->m_x > 0 && mpos->m_x < 1024 && mpos->m_y > 150 && mpos->m_y < 768)
+	{
+		mouseOver = *mpos;
+		mouseOn = true;
+		if (Game::Instance()->mouseClicked)
+		{
+			//avoid scroll arrows
+			if(mouseOver.m_x < 1024 - 20 && mouseOver.m_y < 768 - 20)
+				selected = mouseOver.m_y;
 		}
 	}
 

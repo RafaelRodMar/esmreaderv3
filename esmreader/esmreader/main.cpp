@@ -384,6 +384,7 @@ void Game::render()
 						d.push_back(temp);
 					}
 					showControl->setData(h,d);
+					showControl->iconColumn = 9;
 
 					showControl->tag = "Armor";
 				}
@@ -600,10 +601,22 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Sound")
 			{
-				AssetsManager::Instance()->Text("Sound", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Sound", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Sound")
 				{
-					 
+					//pass headers to the showControl
+					std::vector< std::string > h = { "Name", "File name"};
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vsoun) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->soundColumn = 1;
 
 					showControl->tag = "Sound";
 				}
@@ -680,6 +693,7 @@ void Game::render()
 						d.push_back(temp);
 					}
 					showControl->setData(h,d);
+					showControl->textureColumn = 2;
 					
 					showControl->tag = "Birthsign";
 				}

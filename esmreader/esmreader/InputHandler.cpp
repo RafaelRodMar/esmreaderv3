@@ -201,6 +201,10 @@ void InputHandler::update()
 			onMouseButtonUp(event);
 			break;
 
+		case SDL_MOUSEWHEEL:
+			onMouseWheel(event);
+			break;
+
 		case SDL_KEYDOWN:
 			onKeyDown();
 			break;
@@ -264,6 +268,29 @@ void InputHandler::onMouseButtonUp(SDL_Event &event)
 	if (event.button.button == SDL_BUTTON_RIGHT)
 	{
 		m_mouseButtonStates[RIGHT] = false;
+	}
+}
+
+void InputHandler::onMouseWheel(SDL_Event& event)
+{
+	if (event.wheel.y > 0) // scroll up
+	{
+		// Put code for handling "scroll up" here!
+		m_mouseWheelUp = true;
+	}
+	else if (event.wheel.y < 0) // scroll down
+	{
+		// Put code for handling "scroll down" here!
+		m_mouseWheelDown = true;
+	}
+
+	if (event.wheel.x > 0) // scroll right
+	{
+		// ...
+	}
+	else if (event.wheel.x < 0) // scroll left
+	{
+		// ...
 	}
 }
 

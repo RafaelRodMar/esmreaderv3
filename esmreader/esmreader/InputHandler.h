@@ -53,6 +53,15 @@ public:
 		m_mouseButtonStates[1] = false;
 		m_mouseButtonStates[2] = false;
 	}
+	void setMouseWheelToFalse() {
+		m_mouseWheelUp = m_mouseWheelDown = false;
+	}
+	bool isMouseWheelUp() {
+		return m_mouseWheelUp;
+	}
+	bool isMouseWheelDown() {
+		return m_mouseWheelDown;
+	}
 
 private:
 
@@ -72,6 +81,7 @@ private:
 	void onMouseMove(SDL_Event& event);
 	void onMouseButtonDown(SDL_Event& event);
 	void onMouseButtonUp(SDL_Event& event);
+	void onMouseWheel(SDL_Event& event);
 
 	// handle joysticks events
 	void onJoystickAxisMove(SDL_Event& event);
@@ -93,6 +103,8 @@ private:
 	// mouse specific
 	std::vector<bool> m_mouseButtonStates;
 	Vector2D* m_mousePosition;
+	bool m_mouseWheelUp = false;
+	bool m_mouseWheelDown = false;
 
 	// singleton
 	static InputHandler* s_pInstance;
