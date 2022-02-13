@@ -305,3 +305,27 @@ void AssetsManager::loadAssetsJson()
 		std::cout << "Error loading assets" << std::endl;
 	}
 }
+
+void AssetsManager::clearAll() {
+	//clear textures
+	for (auto const& x : m_textureMap){
+		SDL_DestroyTexture(m_textureMap[x.first]);
+	}
+	m_textureMap.clear();
+
+	//clear sounds
+	for (auto const& x : m_sfxs) {
+		Mix_FreeChunk(m_sfxs[x.first]);
+	}
+	m_sfxs.clear();
+
+	//clear music
+	for (auto const& x : m_music) {
+		Mix_FreeMusic(m_music[x.first]);
+	}
+	m_music.clear();
+
+	//clear fonts
+	clearFonts();
+	m_fonts.clear();
+}

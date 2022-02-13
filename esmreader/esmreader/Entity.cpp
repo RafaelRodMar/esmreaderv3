@@ -275,7 +275,7 @@ void ShowControl::draw()
 				std::string fullPath = path + data[selectedIndex][iconColumn];
 				AssetsManager::Instance()->loadTexture(fullPath, iconId, Game::Instance()->getRenderer());
 			}
-			AssetsManager::Instance()->draw(iconId, 560, 0, 64, 64, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
+			AssetsManager::Instance()->draw(iconId, 850, 0, 32, 32, Game::Instance()->getRenderer(), SDL_FLIP_NONE);
 		}
 
 		if (soundColumn != -1)

@@ -7,28 +7,12 @@
         "lhead": "henway_sm.ico"
     },
     "img": {
-        "car1": "car1.png",
-        "car2": "car2.png",
-        "car3": "car3.png",
-        "car4": "car4.png",
-        "chicken": "chicken.png",
-        "chickenhead": "chickenhead.png",
-        "highway": "highway.png",
-	"button": "button.png",
 	"arrow-up": "arrow-up.png",
 	"arrow-down": "arrow-down.png",
 	"arrow-left": "arrow-left.png",
 	"arrow-right": "arrow-right.png"
     },
-    "mus": {
-        "music": "music.ogg"
-    },
     "snd": {
-        "bok": "bok.wav",
-        "carhorn1": "carhorn1.wav",
-        "carhorn2": "carhorn2.wav",
-        "celebrate": "celebrate.wav",
-        "gameover": "gameover.wav",
-        "squish": "squish.wav"
+        "bok": "bok.wav"
     }
 }

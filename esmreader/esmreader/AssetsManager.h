@@ -40,6 +40,7 @@ public:
 
 	void loadAssets();
 	void loadAssetsJson();
+	void clearAll();
 
 	//TEXTURES
 	//Load the image with the fileName, and assigns an id.

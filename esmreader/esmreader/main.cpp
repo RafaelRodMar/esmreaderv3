@@ -788,7 +788,7 @@ void Game::clean()
 	std::cout << "cleaning game\n";
 	for(auto x : entities) delete(x);
 	InputHandler::Instance()->clean();
-	AssetsManager::Instance()->clearFonts();
+	AssetsManager::Instance()->clearAll();
 	TTF_Quit();
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
