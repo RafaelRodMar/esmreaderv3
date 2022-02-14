@@ -973,11 +973,11 @@ std::vector<INGR> vingr;
 
 //used by BOOK records
 struct BookData {
- 	float weight;
- 	long int value;
- 	long int scroll; //0 = not scroll, 1 = scroll
- 	long int skillID; //-1 = not skill
- 	long int enchantPts;
+ 	float weight = 0.0;
+ 	unsigned long int value = 0;
+ 	unsigned long int scroll = 0; //0 = not scroll, 1 = scroll
+ 	long int skillID = -1; //-1 = not skill
+ 	unsigned long int enchantPts = 0;
 };
 
 //books records

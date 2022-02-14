@@ -1084,7 +1084,7 @@ void parseBOOK(std::vector<char> &buffer) {
 		if (x.first == "TEXT") b.text = getString(x.second);
 		if (x.first == "ITEX") b.icon = getString(x.second);
 		if (x.first == "ENAM") b.enchantment = getString(x.second);
-		if (x.first == "LKDT") memmove((char*)&b.bd, x.second.data(), sizeof(b.bd));
+		if (x.first == "BKDT") memmove((char*)&b.bd, x.second.data(), sizeof(b.bd));
 	}
 
 	//std::cout << b.fullName << " " << b.model << std::endl;
@@ -1560,12 +1560,12 @@ void readESM(const std::string &filename) {
 			//if (name == "CLOT") parseCLOT(buffer);
 			//if (name == "REPA") parseREPA(buffer);
 			//if (name == "ACTI") parseACTI(buffer);
-			//if (name == "APPA") parseAPPA(buffer);
+			if (name == "APPA") parseAPPA(buffer);
 			//if (name == "LOCK") parseLOCK(buffer);
 			//if (name == "PROB") parsePROB(buffer);
 			//if (name == "INGR") parseINGR(buffer);
-			//if (name == "BOOK") parseBOOK(buffer);
-			//if (name == "ALCH") parseALCH(buffer);
+			if (name == "BOOK") parseBOOK(buffer);
+			if (name == "ALCH") parseALCH(buffer);
 			//if (name == "LEVI") parseLEVI(buffer);
 			//if (name == "LEVC") parseLEVC(buffer);
 			//if (name == "CELL") parseCELL(buffer);
