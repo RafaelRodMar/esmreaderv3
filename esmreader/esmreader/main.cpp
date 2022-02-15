@@ -462,12 +462,18 @@ void Game::render()
 						temp.push_back(to_string(x.bd.skillID));
 						temp.push_back(to_string(x.bd.scroll));
 						temp.push_back(to_string(x.bd.enchantPts));
-						temp.push_back(x.text);
+						std::string tempstr = "";
+						for (int i = 0; i < std::min(100,(int)x.text.size()); i++) {
+							if (x.text[i] >= 'a' && x.text[i] <= 'z') tempstr += x.text[i];
+							if (x.text[i] >= 'A' && x.text[i] <= 'Z') tempstr += x.text[i];
+							if (x.text[i] >= '0' && x.text[i] <= '9') tempstr += x.text[i];
+						}
+						temp.push_back(tempstr);
 						//remove line breaks for text converter
 						temp.back().erase(std::remove(temp.back().begin(), temp.back().end(), '\n'), temp.back().end());
 						temp.back().erase(std::remove(temp.back().begin(), temp.back().end(), '\r'), temp.back().end());
-						temp.back().erase(std::remove_if(temp.back().begin(), temp.back().end(),
-							[](auto const& c) -> bool { return !std::isalnum(c); }), temp.back().end());
+						/*temp.back().erase(std::remove_if(temp.back().begin(), temp.back().end(),
+							[](auto const& c) -> bool { return !std::isalnum(c); }), temp.back().end());*/
 												
 						d.push_back(temp);
 					}
