@@ -253,10 +253,26 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "NPC")
 			{
-				AssetsManager::Instance()->Text("NPC", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("NPC", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "NPC")
 				{
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Script", "Race", "ClassName", "Faction" };
 
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vnpc_) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.script);
+						temp.push_back(x.race);
+						temp.push_back(x.className);
+						temp.push_back(x.faction);
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 		
 					showControl->tag = "NPC";
 				}
@@ -264,10 +280,30 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Creature")
 			{
-				AssetsManager::Instance()->Text("Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Creature")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Script", "Sound", "Spells" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vcrea) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.script);
+						temp.push_back(x.sound);
+						std::string aux;
+						for (int i = 0; i < x.spells.size(); i++) {
+							aux += x.spells[i] + ",";
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Creature";
 				}
@@ -486,10 +522,38 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Clothing")
 			{
-				AssetsManager::Instance()->Text("Clothing", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Clothing", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Clothing")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Enchantment", "Script", "Weight", "Value", "Type", "Enchantment Points", "Body part--male name--female name" };
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vclot) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.enchantment);
+						temp.push_back(x.script);
+						temp.push_back(to_string(x.cd.weight));
+						temp.push_back(to_string(x.cd.value));
+						temp.push_back(to_string(x.cd.type));
+						temp.push_back(to_string(x.cd.enchantmentPts));
+						std::string tempText = "";
+						for (int j = 0; j < x.bp.size(); j++) {
+							tempText += x.bp[j].bodyPartIndex + "--";
+							tempText += x.bp[j].maleBodyPartName + "--";
+							tempText += x.bp[j].femaleBodyPartName;
+							if (j != x.bp.size() - 1) tempText += ", ";
+						}
+						temp.push_back(tempText);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Clothing";
 				}
@@ -607,10 +671,28 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Cell")
 			{
-				AssetsManager::Instance()->Text("Cell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Cell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Cell")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Region name", "Persistent Refs" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vcell) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.regionName);
+						std::string tempText = "";
+						for (int j = 0; j < x.persistentRefs.size(); j++) {
+							tempText += x.persistentRefs[j].name;
+							if (j != x.persistentRefs.size() - 1) tempText += ", ";
+						}
+						temp.push_back(tempText);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Cell";
 				}

@@ -1551,13 +1551,13 @@ void readESM(const std::string &filename) {
 			//if (name == "WEAP") parseWEAP(buffer);
 			//if (name == "CONT") parseCONT(buffer);
 			//if (name == "SPEL") parseSPEL(buffer);
-			//if (name == "CREA") parseCREA(buffer);
+			if (name == "CREA") parseCREA(buffer);
 			//if (name == "BODY") parseBODY(buffer);
 			//if (name == "LIGH") parseLIGH(buffer);
 			//if (name == "ENCH") parseENCH(buffer);
-			//if (name == "NPC_") parseNPC_(buffer);
+			if (name == "NPC_") parseNPC_(buffer);
 			if (name == "ARMO") parseARMO(buffer);
-			//if (name == "CLOT") parseCLOT(buffer);
+			if (name == "CLOT") parseCLOT(buffer);
 			//if (name == "REPA") parseREPA(buffer);
 			//if (name == "ACTI") parseACTI(buffer);
 			if (name == "APPA") parseAPPA(buffer);
@@ -1568,7 +1568,7 @@ void readESM(const std::string &filename) {
 			if (name == "ALCH") parseALCH(buffer);
 			//if (name == "LEVI") parseLEVI(buffer);
 			//if (name == "LEVC") parseLEVC(buffer);
-			//if (name == "CELL") parseCELL(buffer);
+			if (name == "CELL") parseCELL(buffer);
 			//if (name == "LAND") parseLAND(buffer);
 			//if (name == "PGRD") parsePGRD(buffer);
 			//if (name == "SNDG") parseSNDG(buffer);
