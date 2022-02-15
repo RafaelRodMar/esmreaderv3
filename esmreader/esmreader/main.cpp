@@ -672,10 +672,14 @@ void Game::render()
 			if (Game::Instance()->lastButtonClicked == "Cell")
 			{
 				//AssetsManager::Instance()->Text("Cell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				int maxX = -100;
+				int minX = 100;
+				int maxY = -100;
+				int minY = 100;
 				if (showControl->tag != "Cell")
 				{
 					//ready headers for the showControl
-					std::vector< std::string > h = { "Name", "Region name", "Persistent Refs" };
+					std::vector< std::string > h = { "Name", "Region name", "Position", "Persistent Refs" };
 
 					//pass data to the showControl
 					std::vector< std::vector< std::string > > d;
@@ -683,6 +687,12 @@ void Game::render()
 						std::vector< std::string > temp;
 						temp.push_back(x.name);
 						temp.push_back(x.regionName);
+						temp.push_back(to_string(x.cd.gridX));
+						temp.back() += "," + to_string(x.cd.gridY);
+						if (x.cd.gridX > maxX) maxX = x.cd.gridX;
+						if (x.cd.gridX < minX) minX = x.cd.gridX;
+						if (x.cd.gridY > maxY) maxY = x.cd.gridY;
+						if (x.cd.gridY < minY) minY = x.cd.gridY;
 						std::string tempText = "";
 						for (int j = 0; j < x.persistentRefs.size(); j++) {
 							tempText += x.persistentRefs[j].name;
@@ -693,6 +703,10 @@ void Game::render()
 						d.push_back(temp);
 					}
 					showControl->setData(h, d);
+					std::cout << "maxX: " << maxX <<
+						"minX: " << minX <<
+						"maxY: " << maxY <<
+						"minY: " << minY << std::endl;
 
 					showControl->tag = "Cell";
 				}
