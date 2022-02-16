@@ -340,10 +340,31 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Spellmaking")
 			{
-				AssetsManager::Instance()->Text("Spellmaking", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Spellmaking", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Spellmaking")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Type", "Spell Cost", "Área-duration-range" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vspel) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(to_string(x.sd.type));
+						temp.push_back(to_string(x.sd.spellCost));
+						std::string aux = "";
+						for (int i = 0; i < x.ed.size(); i++) {
+							aux += to_string(x.ed[i].area) + " ";
+							aux += to_string(x.ed[i].duration) + " ";
+							aux += to_string(x.ed[i].range);
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Spellmaking";
 				}
@@ -351,10 +372,31 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Enchanting")
 			{
-				AssetsManager::Instance()->Text("Enchanting", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Enchanting", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Enchanting")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Type", "Enchantment Cost", "Charge", "Área-duration-range" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vench) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(to_string(x.ed.type));
+						temp.push_back(to_string(x.ed.enchantmentCost));
+						temp.push_back(to_string(x.ed.charge));
+						std::string aux = "";
+						for (int i = 0; i < x.enchantments.size(); i++) {
+							aux += to_string(x.enchantments[i].area) + " ";
+							aux += to_string(x.enchantments[i].duration) + " ";
+							aux += to_string(x.enchantments[i].range);
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Enchanting";
 				}
@@ -1137,10 +1179,28 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Magic Effects")
 			{
-				AssetsManager::Instance()->Text("Magic Effects", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Magic Effects", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Magic Effects")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Index", "description", "Icon", "Cost", "Visual (área, bolt, casting)", "Sound (área, bolt, casting)" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vmgef) {
+						std::vector< std::string > temp;
+						temp.push_back(to_string(x.index));
+						temp.push_back(x.description);
+						temp.push_back(x.iconTexture);
+						temp.push_back(to_string(x.md.baseCost));
+						temp.push_back(x.areaVisual);
+						temp.back() += " " + x.boltVisual + " " + x.castingVisual;
+						temp.push_back(x.areaSound);
+						temp.back() += " " + x.boltSound + " " + x.castSound;
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 2;
 
 					showControl->tag = "Magic Effects";
 				}

@@ -1540,7 +1540,7 @@ void readESM(const std::string &filename) {
 			if (name == "RACE") parseRACE(buffer);
 			if (name == "SOUN") parseSOUN(buffer);
 			if (name == "SKIL") parseSKIL(buffer);
-			//if (name == "MGEF") parseMGEF(buffer);
+			if (name == "MGEF") parseMGEF(buffer);
 			//if (name == "SCPT") parseSCPT(buffer);
 			//if (name == "REGN") parseREGN(buffer);
 			if (name == "BSGN") parseBSGN(buffer);
@@ -1550,11 +1550,11 @@ void readESM(const std::string &filename) {
 			if (name == "MISC") parseMISC(buffer);
 			if (name == "WEAP") parseWEAP(buffer);
 			if (name == "CONT") parseCONT(buffer);
-			//if (name == "SPEL") parseSPEL(buffer);
+			if (name == "SPEL") parseSPEL(buffer);
 			if (name == "CREA") parseCREA(buffer);
 			if (name == "BODY") parseBODY(buffer);
 			if (name == "LIGH") parseLIGH(buffer);
-			//if (name == "ENCH") parseENCH(buffer);
+			if (name == "ENCH") parseENCH(buffer);
 			if (name == "NPC_") parseNPC_(buffer);
 			if (name == "ARMO") parseARMO(buffer);
 			if (name == "CLOT") parseCLOT(buffer);
