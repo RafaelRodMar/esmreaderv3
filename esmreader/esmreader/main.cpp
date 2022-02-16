@@ -688,6 +688,9 @@ void Game::render()
 						temp.push_back(to_string(x.cd.flags));
 						temp.push_back(to_string(x.cd.gridX));
 						temp.back() += "," + to_string(x.cd.gridY);
+						if (x.cd.flags & (1 << 0)) temp.back() += " interior ";
+						if (x.cd.flags & (1 << 1)) temp.back() += " has water ";
+						if (x.cd.flags & (1 << 2)) temp.back() += " illegal to sleep here ";
 						if (x.cd.gridX > maxX) maxX = x.cd.gridX;
 						if (x.cd.gridY > maxY) maxY = x.cd.gridY;
 						std::string tempText = "";
