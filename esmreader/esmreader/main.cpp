@@ -311,10 +311,28 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Leveled Creature")
 			{
-				AssetsManager::Instance()->Text("Leveled Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Leveled Creature", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Leveled Creature")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Count", "Items" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vlevc) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(to_string(x.count));
+						std::string aux = "";
+						for (int i = 0; i < x.item.size(); i++) {
+							aux += x.item[i].first;
+							aux += " (" + to_string(x.item[i].second) + " )";
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Leveled Creature";
 				}
@@ -374,10 +392,28 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Leveled Item")
 			{
-				AssetsManager::Instance()->Text("Leveled Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Leveled Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Leveled Item")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Count", "Items" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vlevi) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(to_string(x.count));
+						std::string aux = "";
+						for (int i = 0; i < x.item.size(); i++) {
+							aux += x.item[i].first;
+							aux += " (" + to_string(x.item[i].second) + " )";
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Leveled Item";
 				}
@@ -385,10 +421,24 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Activator")
 			{
-				AssetsManager::Instance()->Text("Activator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Activator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Activator")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Script" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vacti) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.script);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Activator";
 				}
@@ -467,10 +517,23 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Body Part")
 			{
-				AssetsManager::Instance()->Text("Body Part", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Body Part", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Body Part")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vbody) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Body Part";
 				}
@@ -564,7 +627,28 @@ void Game::render()
 				AssetsManager::Instance()->Text("Container", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Container")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Script", "Weight", "Items" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vcont) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.script);
+						temp.push_back(to_string(x.weight));
+						std::string aux = "";
+						for (int i = 0; i < x.items.size(); i++) {
+							aux += x.items[i].name;
+							aux += " (" + to_string(x.items[i].count) + ") ";
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Container";
 				}
@@ -572,10 +656,26 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Door")
 			{
-				AssetsManager::Instance()->Text("Door", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Door", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Door")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Script", "Open Sound", "Close Sound" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vdoor) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.script);
+						temp.push_back(x.openSound);
+						temp.push_back(x.closeSound);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Door";
 				}
@@ -586,7 +686,25 @@ void Game::render()
 				AssetsManager::Instance()->Text("Ingredient", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Ingredient")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Script", "Value", "Weight" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vingr) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.script);
+						temp.push_back(to_string(x.id.value));
+						temp.push_back(to_string(x.id.weight));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Ingredient";
 				}
@@ -594,10 +712,28 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Light")
 			{
-				AssetsManager::Instance()->Text("Light", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Light", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Light")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Script", "Value", "Uses" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vligh) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.script);
+						temp.push_back(to_string(x.ld.value));
+						temp.push_back(to_string(x.ld.weight));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Light";
 				}
@@ -605,10 +741,30 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Lockpick")
 			{
-				AssetsManager::Instance()->Text("Lockpick", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Lockpick", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Lockpick")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Script", "Quality", "Value", "Uses", "Weight" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vlock) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.script);
+						temp.push_back(to_string(x.ld.quality));
+						temp.push_back(to_string(x.ld.value));
+						temp.push_back(to_string(x.ld.uses));
+						temp.push_back(to_string(x.ld.weight));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Lockpick";
 				}
@@ -616,10 +772,29 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Misc Item")
 			{
-				AssetsManager::Instance()->Text("Misc Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Misc Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Misc Item")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Script", "Enchantment", "Value", "Weight" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vmisc) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.script);
+						temp.push_back(x.enchantment);
+						temp.push_back(to_string(x.mid.value));
+						temp.push_back(to_string(x.mid.weight));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Misc Item";
 				}
@@ -627,10 +802,30 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Probe")
 			{
-				AssetsManager::Instance()->Text("Probe", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Probe", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Probe")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Script", "Quality", "Uses", "Value", "Weight" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vprob) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.script);
+						temp.push_back(to_string(x.pd.quality));
+						temp.push_back(to_string(x.pd.uses));
+						temp.push_back(to_string(x.pd.value));
+						temp.push_back(to_string(x.pd.weight));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Probe";
 				}
@@ -638,10 +833,30 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Repair Item")
 			{
-				AssetsManager::Instance()->Text("Repair Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Repair Item", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Repair Item")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Script", "Quality", "Uses", "Value", "Weight" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vrepa) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.script);
+						temp.push_back(to_string(x.rd.quality));
+						temp.push_back(to_string(x.rd.uses));
+						temp.push_back(to_string(x.rd.value));
+						temp.push_back(to_string(x.rd.weight));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Repair Item";
 				}
@@ -649,10 +864,22 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Static")
 			{
-				AssetsManager::Instance()->Text("Static", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Static", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Static")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Model" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vstat) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.model);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Static";
 				}
@@ -660,10 +887,30 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Weapon")
 			{
-				AssetsManager::Instance()->Text("Weapon", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Weapon", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Weapon")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Model", "Icon", "Script", "Enchantment", "Type", "Value", "Weight" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vweap) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.model);
+						temp.push_back(x.icon);
+						temp.push_back(x.script);
+						temp.push_back(x.enchantment);
+						temp.push_back(to_string(x.wd.type));
+						temp.push_back(to_string(x.wd.value));
+						temp.push_back(to_string(x.wd.weight));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
+					showControl->iconColumn = 3;
 
 					showControl->tag = "Weapon";
 				}
@@ -712,10 +959,24 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Game Settings")
 			{
-				AssetsManager::Instance()->Text("Game Settings", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Game Settings", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Game Settings")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Int value", "Float value", "String value" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vgmst) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(to_string(x.intValue));
+						temp.push_back(to_string(x.floatValue));
+						temp.push_back(x.stringValue);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Game Settings";
 				}
@@ -723,10 +984,23 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Global")
 			{
-				AssetsManager::Instance()->Text("Global", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Global", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Global")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Type", "Value" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vglob) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.type);
+						temp.push_back(to_string(x.value));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Global";
 				}
@@ -734,10 +1008,23 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Class")
 			{
-				AssetsManager::Instance()->Text("Class", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Class", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Class")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Description" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vclas) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.description);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Class";
 				}
@@ -745,10 +1032,27 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Faction")
 			{
-				AssetsManager::Instance()->Text("Faction", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Faction", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Faction")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Rank names" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vfact) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						std::string aux = "";
+						for (int i = 0; i < x.rankName.size(); i++) {
+							aux += x.rankName[i] + "--";
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Faction";
 				}
@@ -756,10 +1060,28 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Race")
 			{
-				AssetsManager::Instance()->Text("Race", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Race", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Race")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Description", "Special" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vrace) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.description);
+						std::string aux = "";
+						for (int i = 0; i < x.special.size(); i++) {
+							aux += x.special[i] + "--";
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Race";
 				}
@@ -790,10 +1112,24 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Skill")
 			{
-				AssetsManager::Instance()->Text("Skill", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Skill", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Skill")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Index", "description", "Atribute", "Specialization" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vskil) {
+						std::vector< std::string > temp;
+						temp.push_back(to_string(x.index));
+						temp.push_back(x.description);
+						temp.push_back(to_string(x.sd.attribute));
+						temp.push_back(to_string(x.sd.specialization));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Skill";
 				}

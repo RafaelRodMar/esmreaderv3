@@ -953,7 +953,7 @@ std::vector<PROB> vprob;
 //used by INGR records
 struct IngredientData {
 	float weight;
-	long int value;
+	Uint32 value;
 	long int effectID[4]; //0 or -1 means no effect
 	long int skillID[4]; //only for skill related effects, 0 or -1 otherwise
 	long int attributeID[4]; //only for attribute related effects, 0 or -1 otherwise
