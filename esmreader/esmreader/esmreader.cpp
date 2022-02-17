@@ -1541,8 +1541,8 @@ void readESM(const std::string &filename) {
 			if (name == "SOUN") parseSOUN(buffer);
 			if (name == "SKIL") parseSKIL(buffer);
 			if (name == "MGEF") parseMGEF(buffer);
-			//if (name == "SCPT") parseSCPT(buffer);
-			//if (name == "REGN") parseREGN(buffer);
+			if (name == "SCPT") parseSCPT(buffer);
+			if (name == "REGN") parseREGN(buffer);
 			if (name == "BSGN") parseBSGN(buffer);
 			if (name == "LTEX") parseLTEX(buffer);
 			if (name == "STAT") parseSTAT(buffer);
@@ -1569,11 +1569,11 @@ void readESM(const std::string &filename) {
 			if (name == "LEVI") parseLEVI(buffer);
 			if (name == "LEVC") parseLEVC(buffer);
 			if (name == "CELL") parseCELL(buffer);
-			//if (name == "LAND") parseLAND(buffer);
-			//if (name == "PGRD") parsePGRD(buffer);
-			//if (name == "SNDG") parseSNDG(buffer);
-			//if (name == "DIAL") parseDIAL(buffer);
-			//if (name == "INFO") parseINFO(buffer);
+			if (name == "LAND") parseLAND(buffer);
+			if (name == "PGRD") parsePGRD(buffer);
+			if (name == "SNDG") parseSNDG(buffer);
+			if (name == "DIAL") parseDIAL(buffer);
+			if (name == "INFO") parseINFO(buffer);
 		}
 		else
 		{

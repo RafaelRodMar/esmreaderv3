@@ -1208,10 +1208,26 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Script")
 			{
-				AssetsManager::Instance()->Text("Script", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Script", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Script")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Local Vars", "Text" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vscpt) {
+						std::vector< std::string > temp;
+						temp.push_back(x.sh.name);
+						std::string aux = "";
+						for (int i = 0; i < x.localVars.size(); i++) {
+							aux += x.localVars[i] + ",";
+						}
+						temp.push_back(aux);
+						temp.push_back(x.textScpt);
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Script";
 				}
@@ -1219,10 +1235,22 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Region")
 			{
-				AssetsManager::Instance()->Text("Region", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Region", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Region")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Sleep Creature" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vregn) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(x.sleepCreature);
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Region";
 				}
@@ -1287,10 +1315,21 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Landscape")
 			{
-				AssetsManager::Instance()->Text("Landscape", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Landscape", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Landscape")
 				{
-					 
+					//pass headers to the showControl
+					std::vector< std::string > h = { "Coord x", "Coord y" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vland) {
+						std::vector< std::string > temp;
+						temp.push_back(to_string(x.coord.x));
+						temp.push_back(to_string(x.coord.y));
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Landscape";
 				}
@@ -1298,10 +1337,20 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Path Grid")
 			{
-				AssetsManager::Instance()->Text("Path Grid", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Path Grid", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Path Grid")
 				{
-					 
+					//pass headers to the showControl
+					std::vector< std::string > h = { "Name" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vpgrd) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Path Grid";
 				}
@@ -1309,10 +1358,23 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Sound Generator")
 			{
-				AssetsManager::Instance()->Text("Sound Generator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Sound Generator", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Sound Generator")
 				{
-					 
+					//pass headers to the showControl
+					std::vector< std::string > h = { "Name", "Creature Name", "Sound id", "Sound type" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vsndg) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.creatureName);
+						temp.push_back(x.soundID);
+						temp.push_back(to_string(x.soundTypeData));
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Sound Generator";
 				}
@@ -1320,10 +1382,31 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Spell")
 			{
-				AssetsManager::Instance()->Text("Spell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Spell", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Spell")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Full name", "Type", "Spell Cost", "Área-duration-range" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vspel) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(x.fullName);
+						temp.push_back(to_string(x.sd.type));
+						temp.push_back(to_string(x.sd.spellCost));
+						std::string aux = "";
+						for (int i = 0; i < x.ed.size(); i++) {
+							aux += to_string(x.ed[i].area) + " ";
+							aux += to_string(x.ed[i].duration) + " ";
+							aux += to_string(x.ed[i].range);
+						}
+						temp.push_back(aux);
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Spell";
 				}
@@ -1331,10 +1414,22 @@ void Game::render()
 
 			if (Game::Instance()->lastButtonClicked == "Dialog")
 			{
-				AssetsManager::Instance()->Text("Dialog", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
+				//AssetsManager::Instance()->Text("Dialog", "font", 5, 150, SDL_Color({ 0,0,0,0 }), getRenderer());
 				if (showControl->tag != "Dialog")
 				{
-					 
+					//ready headers for the showControl
+					std::vector< std::string > h = { "Name", "Dialogue type" };
+
+					//pass data to the showControl
+					std::vector< std::vector< std::string > > d;
+					for (auto x : vdial) {
+						std::vector< std::string > temp;
+						temp.push_back(x.name);
+						temp.push_back(to_string(x.dialogueType));
+
+						d.push_back(temp);
+					}
+					showControl->setData(h, d);
 
 					showControl->tag = "Dialog";
 				}
